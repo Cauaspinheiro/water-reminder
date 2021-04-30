@@ -2,10 +2,10 @@ import { Notification, remote } from 'electron'
 
 import GetWaterDetails from './get_water_details'
 
-export default function CreateWaterNotification(): Notification {
+export default function CreateWaterNotification(): Notification | undefined {
   const { total_water } = GetWaterDetails()
 
-  if (!remote) return null
+  if (!remote) return undefined
 
   const notification = new remote.Notification({
     title: 'Hora de beber água!',

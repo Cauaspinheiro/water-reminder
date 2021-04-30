@@ -57,18 +57,20 @@ export const WaterContextProvider: React.FC = ({ children }) => {
   )
 
   const notification = useMemo(() => {
-    const notification = CreateWaterNotification()
+    const waterNotification = CreateWaterNotification()
 
-    if (!notification) return
+    if (!waterNotification) return undefined
 
-    notification.on('click', () => {
+    waterNotification.on('click', () => {
       setTimeInSeconds(INITIAL_SECONDS_TO_REMIND)
       addWater(10)
     })
 
-    notification.on('close', () => setTimeInSeconds(INITIAL_SECONDS_TO_REMIND))
+    waterNotification.on('close', () =>
+      setTimeInSeconds(INITIAL_SECONDS_TO_REMIND)
+    )
 
-    return notification
+    return waterNotification
   }, [addWater])
 
   const resetTimeout = useCallback(() => {
