@@ -38,7 +38,7 @@ export function useWaterContext(): WaterContext {
 
 let countdownTimeout: NodeJS.Timeout
 
-const INITIAL_SECONDS_TO_REMIND = 10
+const INITIAL_SECONDS_TO_REMIND = 10 * 60
 
 export const WaterContextProvider: React.FC = ({ children }) => {
   const [totalWater, setTotalWater] = useState(GetWaterDetails().total_water)

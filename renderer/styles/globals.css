@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
 body {
-  background: #202833;
+  @apply w-screen h-screen text-base font-semibold bg-page font-poppins;
 }
