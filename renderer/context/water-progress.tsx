@@ -8,15 +8,19 @@ import {
 } from 'react'
 
 import CreateWaterNotification from '../use-cases/create_water_notification'
-import GetWaterDetails from '../use-cases/get_water_details'
-import SetWaterDetails from '../use-cases/set_water_details'
+import GetWaterProgress from '../use-cases/get_water_progress'
+import SetWaterProgress from '../use-cases/set_water_progress'
 
 interface State {
-  totalWater: number
+  progress: {
+    meta: number
+    achieved: number
+  }
   remainingTime: {
     minutes: number
     seconds: number
   }
+  percent: number
 }
 
 interface Actions {
@@ -24,11 +28,11 @@ interface Actions {
   resetTimeout(): void
 }
 
-type WaterContext = State & Actions
+type WaterProgressContext = State & Actions
 
-const Context = createContext<WaterContext | null>(null)
+const Context = createContext<WaterProgressContext | null>(null)
 
-export function useWaterContext(): WaterContext {
+export function useWaterProgressContext(): WaterProgressContext {
   const value = useContext(Context)
 
   if (value === null) throw new Error('WATER CONTEXT NOT PROVIDED')
@@ -38,32 +42,40 @@ export function useWaterContext(): WaterContext {
 
 let countdownTimeout: NodeJS.Timeout
 
-const INITIAL_SECONDS_TO_REMIND = 10 * 60
+const INITIAL_SECONDS_TO_REMIND = 15
 
-export const WaterContextProvider: React.FC = ({ children }) => {
-  const [totalWater, setTotalWater] = useState(GetWaterDetails().total_water)
+export const WaterProgressContext: React.FC = ({ children }) => {
+  const [progress, setProgress] = useState(GetWaterProgress())
 
   const [timeInSeconds, setTimeInSeconds] = useState(INITIAL_SECONDS_TO_REMIND)
 
+  const percent = useMemo(() => {
+    return Math.round((progress.achieved / progress.meta) * 100)
+  }, [progress])
+
   const addWater = useCallback(
     (water: number) => {
-      const sumWater = water + totalWater
+      const sumWater = water + progress.achieved
 
-      SetWaterDetails({ total_water: sumWater })
+      const newProgress = { ...progress, achieved: sumWater }
 
-      setTotalWater(sumWater)
+      SetWaterProgress(newProgress)
+
+      setProgress(newProgress)
     },
-    [totalWater]
+    [progress]
   )
 
   const notification = useMemo(() => {
-    const waterNotification = CreateWaterNotification()
+    const waterNotification = CreateWaterNotification({
+      percentAchieved: percent
+    })
 
     if (!waterNotification) return undefined
 
     waterNotification.on('click', () => {
       setTimeInSeconds(INITIAL_SECONDS_TO_REMIND)
-      addWater(10)
+      addWater(100)
     })
 
     waterNotification.on('close', () =>
@@ -71,7 +83,7 @@ export const WaterContextProvider: React.FC = ({ children }) => {
     )
 
     return waterNotification
-  }, [addWater])
+  }, [addWater, percent])
 
   const resetTimeout = useCallback(() => {
     clearTimeout(countdownTimeout)
@@ -90,17 +102,18 @@ export const WaterContextProvider: React.FC = ({ children }) => {
     notification.show()
   }, [notification, timeInSeconds])
 
-  const value = useMemo<WaterContext>(
+  const value = useMemo<WaterProgressContext>(
     () => ({
-      totalWater,
+      progress,
       addWater,
       remainingTime: {
         minutes: Math.floor(timeInSeconds / 60),
         seconds: timeInSeconds % 60
       },
-      resetTimeout
+      resetTimeout,
+      percent
     }),
-    [addWater, resetTimeout, timeInSeconds, totalWater]
+    [addWater, percent, progress, resetTimeout, timeInSeconds]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>

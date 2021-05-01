@@ -3,13 +3,13 @@ import { FC } from 'react'
 import type { AppProps } from 'next/app'
 
 import '../styles/globals.css'
-import { WaterContextProvider } from '../context/water'
+import AppProvider from '../context'
 
 const App: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
-    <WaterContextProvider>
+    <AppProvider>
       <Component {...pageProps} />
-    </WaterContextProvider>
+    </AppProvider>
   )
 }
 

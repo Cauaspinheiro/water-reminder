@@ -3,10 +3,10 @@ import { useMemo } from 'react'
 import HomeFooterCard from '../components/HomeFooterCard'
 import LinearProgressIndicator from '../components/LinearProgressIndicator'
 import Sidebar from '../components/Sidebar'
-import { useWaterContext } from '../context/water'
+import { useWaterProgressContext } from '../context/water-progress'
 
 const Home: React.FC = () => {
-  const { totalWater, remainingTime } = useWaterContext()
+  const { progress, percent, remainingTime } = useWaterProgressContext()
 
   const formattedRemainingTime = useMemo(() => {
     const minutes =
@@ -35,9 +35,9 @@ const Home: React.FC = () => {
 
         <footer className="flex items-center justify-around w-full h-44 gap-x-16">
           <HomeFooterCard title="Seu nível de água">
-            <LinearProgressIndicator percent={80} />
+            <LinearProgressIndicator percent={percent} />
             <span className="text-xl text-content">
-              {totalWater}ml / 2000ml
+              {progress.achieved}ml / {progress.meta}ml
             </span>
           </HomeFooterCard>
 

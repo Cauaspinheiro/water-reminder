@@ -11,7 +11,7 @@ const LinearProgressIndicator: React.FC<LinearProgressIndicatorProps> = props =>
       className="h-6 rounded-2xl"
     >
       <div
-        className="h-full rounded-2xl bg-gradient"
+        className="h-full max-w-full transition-all duration-1000 rounded-2xl bg-gradient"
         style={{ width: `${props.percent}%` }}
       />
     </div>

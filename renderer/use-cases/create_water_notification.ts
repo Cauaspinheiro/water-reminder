@@ -1,16 +1,18 @@
 import { Notification, remote } from 'electron'
 
-import GetWaterDetails from './get_water_details'
+export interface CreateWaterNotificationProps {
+  percentAchieved: number
+}
 
-export default function CreateWaterNotification(): Notification | undefined {
-  const { total_water } = GetWaterDetails()
-
+export default function CreateWaterNotification(
+  props: CreateWaterNotificationProps
+): Notification | undefined {
   if (!remote) return undefined
 
   const notification = new remote.Notification({
     title: 'Hora de beber água!',
     body:
-      `Você já bebeu ${total_water} litros de água\n\n` +
+      `Você já bebeu ${props.percentAchieved}% da meta de hoje!\n\n` +
       'Clique na notificação para confirmar, e no X para pular essa hora de beber.'
   })
 
