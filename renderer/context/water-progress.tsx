@@ -42,14 +42,14 @@ export function useWaterProgressContext(): WaterProgressContext {
 
 let countdownTimeout: NodeJS.Timeout
 
-const INITIAL_SECONDS_TO_REMIND = 15
+const INITIAL_SECONDS_TO_REMIND = 10 * 60
 
 export const WaterProgressContext: React.FC = ({ children }) => {
   const [progress, setProgress] = useState(GetWaterProgress())
 
   const [timeInSeconds, setTimeInSeconds] = useState(INITIAL_SECONDS_TO_REMIND)
 
-  const percent = useMemo(() => {
+  const percent = useMemo<number>(() => {
     return Math.round((progress.achieved / progress.meta) * 100)
   }, [progress])
 
@@ -99,7 +99,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
       return
     }
 
-    notification.show()
+    notification?.show()
   }, [notification, timeInSeconds])
 
   const value = useMemo<WaterProgressContext>(

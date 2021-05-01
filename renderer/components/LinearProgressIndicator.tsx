@@ -5,6 +5,9 @@ export interface LinearProgressIndicatorProps {
 }
 
 const LinearProgressIndicator: React.FC<LinearProgressIndicatorProps> = props => {
+  const percent =
+    props.percent > 0 ? (props.percent < 8 ? 8 : props.percent) : 0
+
   return (
     <div
       style={{ width: 300, background: '#3e4e62' }}
@@ -12,7 +15,7 @@ const LinearProgressIndicator: React.FC<LinearProgressIndicatorProps> = props =>
     >
       <div
         className="h-full max-w-full transition-all duration-1000 rounded-2xl bg-gradient"
-        style={{ width: `${props.percent}%` }}
+        style={{ width: `${percent}%` }}
       />
     </div>
   )

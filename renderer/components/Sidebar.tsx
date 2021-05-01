@@ -26,7 +26,7 @@ const Sidebar: FC = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-around w-full px-5 py-9 rounded-3xl bg-container">
+      <div className="flex items-center justify-around w-full px-5 cursor-pointer py-9 rounded-3xl bg-container">
         <img src="/images/config.svg" />
 
         <h3 className="text-2xl text-title">Configurações</h3>

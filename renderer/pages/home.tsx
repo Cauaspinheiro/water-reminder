@@ -4,9 +4,12 @@ import HomeFooterCard from '../components/HomeFooterCard'
 import LinearProgressIndicator from '../components/LinearProgressIndicator'
 import Sidebar from '../components/Sidebar'
 import { useWaterProgressContext } from '../context/water-progress'
+import useIsServer from '../hooks/useIsServer'
 
 const Home: React.FC = () => {
   const { progress, percent, remainingTime } = useWaterProgressContext()
+
+  const isServer = useIsServer()
 
   const formattedRemainingTime = useMemo(() => {
     const minutes =
@@ -33,20 +36,24 @@ const Home: React.FC = () => {
 
         <div></div>
 
-        <footer className="flex items-center justify-around w-full h-44 gap-x-16">
-          <HomeFooterCard title="Seu nível de água">
-            <LinearProgressIndicator percent={percent} />
-            <span className="text-xl text-content">
-              {progress.achieved}ml / {progress.meta}ml
-            </span>
-          </HomeFooterCard>
+        {!isServer && (
+          <footer className="flex items-center justify-around w-full h-44 gap-x-16">
+            <HomeFooterCard title="Seu nível de água">
+              <LinearProgressIndicator percent={percent} />
 
-          <HomeFooterCard title="Você irá beber água em">
-            <span className="text-6xl text-content">
-              {formattedRemainingTime.minutes}:{formattedRemainingTime.seconds}
-            </span>
-          </HomeFooterCard>
-        </footer>
+              <span className="text-xl text-content">
+                {progress.achieved}ml / {progress.meta}ml
+              </span>
+            </HomeFooterCard>
+
+            <HomeFooterCard title="Você irá beber água em">
+              <span className="text-6xl text-content">
+                {formattedRemainingTime.minutes}:
+                {formattedRemainingTime.seconds}
+              </span>
+            </HomeFooterCard>
+          </footer>
+        )}
       </div>
     </div>
   )
