@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import HomeFooterCard from '../components/HomeFooterCard'
 import LinearProgressIndicator from '../components/LinearProgressIndicator'
+import Sidebar from '../components/Sidebar'
 import { useWaterContext } from '../context/water'
 
 const Home: React.FC = () => {
@@ -22,11 +23,11 @@ const Home: React.FC = () => {
   }, [remainingTime])
 
   return (
-    <div className="flex-col items-center justify-around flex-1 w-screen h-screen px-20 py-16 ">
-      <aside></aside>
+    <div className="flex items-center justify-between flex-1 w-screen h-screen px-20 py-9 ">
+      <Sidebar />
 
       <div className="flex flex-col items-center justify-between w-full h-full">
-        <h1 className="text-5xl font-semibold text-title">
+        <h1 className="mt-6 text-5xl font-semibold text-title">
           Você está indo bem!
         </h1>
 
