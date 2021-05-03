@@ -11,7 +11,7 @@ export default function GetWeeklyAverage(additionalNumber = 0): number {
 
   history.forEach((value, index) => {
     if ((index + 1) % 7 === 0 && index !== 0) {
-      return weeklyAverages.push(sumHistory / 7)
+      return weeklyAverages.push(sumHistory)
     }
 
     sumHistory += value

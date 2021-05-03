@@ -8,11 +8,13 @@ import {
 } from 'react'
 
 import { ConfigSchema } from '../store/config-store'
+import waterProgressStore from '../store/water-progress-store'
 import CreateWaterNotification from '../use-cases/create_water_notification'
 import GetWaterProgress from '../use-cases/water_progress/get_water_progress'
 import GetWaterProgressConfig from '../use-cases/water_progress/get_water_progress_config'
 import ResetWaterProgress from '../use-cases/water_progress/reset_water_progress'
 import SetWaterProgress from '../use-cases/water_progress/set_water_progress'
+import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
 
 interface State {
   progress: {
@@ -98,7 +100,11 @@ export const WaterProgressContext: React.FC = ({ children }) => {
     clearTimeout(waterCountdown)
     setTimeInSeconds(config.seconds_to_drink)
 
-    setProgress(p => ({ last_progress: p.actual_progress, actual_progress: 0 }))
+    setProgress(p => ({
+      ...p,
+      last_progress: p.actual_progress,
+      actual_progress: 0
+    }))
   }, [config.seconds_to_drink, progress.actual_progress])
 
   useEffect(() => {
@@ -113,31 +119,63 @@ export const WaterProgressContext: React.FC = ({ children }) => {
     notification?.show()
   }, [notification, timeInSeconds])
 
+  const handleReset = useCallback(() => {
+    const hours = getTwoDigitsNumber(new Date().getUTCHours() - 3)
+    const minutes = getTwoDigitsNumber(new Date().getUTCMinutes())
+
+    const resetHours = config.daily_reset_time.substring(0, 2)
+    const resetMinutes = config.daily_reset_time.substring(3)
+
+    const resetTime = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      Number(resetHours),
+      Number(resetMinutes)
+    ).getTime()
+
+    const reset = () => {
+      resetTimeout()
+      setResetDay(!resetDay)
+
+      setProgress(p => ({ ...p, last_reset: resetTime }))
+      waterProgressStore.set('water_progress.last_reset', resetTime)
+    }
+
+    console.log(`resetTime: ${resetTime - 86400000} >= ${progress.last_reset}`)
+
+    if (
+      progress.last_reset &&
+      resetTime - 1000 * 60 * 60 * 60 * 24 >= progress.last_reset
+    ) {
+      reset()
+    }
+
+    if (hours === resetHours && minutes === resetMinutes) {
+      reset()
+    }
+
+    setCheckResetTimer(!checkResetTimer)
+  }, [
+    checkResetTimer,
+    config.daily_reset_time,
+    progress.last_reset,
+    resetDay,
+    resetTimeout
+  ])
+
   useEffect(() => {
-    setTimeout(() => {
-      const hoursAsNumber = new Date().getUTCHours() - 3
-      const minutesAsNumber = new Date().getUTCMinutes()
+    handleReset()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-      const hours =
-        hoursAsNumber >= 10 ? String(hoursAsNumber) : `0${hoursAsNumber}`
-
-      const minutes =
-        minutesAsNumber >= 10 ? String(minutesAsNumber) : `0${minutesAsNumber}`
-
-      const resetHours = config.daily_reset_time.substring(0, 2)
-      const resetMinutes = config.daily_reset_time.substring(3)
-
-      console.log(`UTC: ${hours}:${minutes}`)
-      console.log(`CONFIG: ${resetHours}:${resetMinutes}`)
-
-      if (hours === resetHours && minutes === resetMinutes) {
-        resetTimeout()
-        setResetDay(!resetDay)
-      }
-
-      setCheckResetTimer(!checkResetTimer)
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleReset()
     }, 1000 * 60)
-  }, [checkResetTimer, config.daily_reset_time, resetDay, resetTimeout])
+
+    return () => clearTimeout(timeout)
+  }, [handleReset])
 
   const value = useMemo<WaterProgressContext>(
     () => ({

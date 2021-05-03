@@ -5,6 +5,7 @@ import LinearProgressIndicator from '../components/LinearProgressIndicator'
 import Sidebar from '../components/Sidebar'
 import { useWaterProgressContext } from '../context/water-progress'
 import useIsServer from '../hooks/useIsServer'
+import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
 
 const Home: React.FC = () => {
   const { progress, percent, remainingTime } = useWaterProgressContext()
@@ -12,17 +13,10 @@ const Home: React.FC = () => {
   const isServer = useIsServer()
 
   const formattedRemainingTime = useMemo(() => {
-    const minutes =
-      remainingTime.minutes >= 10
-        ? String(remainingTime.minutes)
-        : `0${remainingTime.minutes}`
-
-    const seconds =
-      remainingTime.seconds >= 10
-        ? String(remainingTime.seconds)
-        : `0${remainingTime.seconds}`
-
-    return { minutes, seconds }
+    return {
+      minutes: getTwoDigitsNumber(remainingTime.minutes),
+      seconds: getTwoDigitsNumber(remainingTime.seconds)
+    }
   }, [remainingTime])
 
   return (

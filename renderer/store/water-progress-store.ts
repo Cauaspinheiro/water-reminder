@@ -4,6 +4,7 @@ import { JSONSchema, JSONSchemaType } from 'json-schema-typed'
 export interface WaterProgressSchema {
   actual_progress: number
   last_progress: number
+  last_reset: number
 }
 
 const storeProps: Record<keyof WaterProgressSchema, JSONSchema> = {
@@ -12,6 +13,10 @@ const storeProps: Record<keyof WaterProgressSchema, JSONSchema> = {
     default: 0
   },
   last_progress: {
+    type: JSONSchemaType.Number,
+    default: 0
+  },
+  last_reset: {
     type: JSONSchemaType.Number,
     default: 0
   }
