@@ -9,6 +9,7 @@ import React, {
 import useIsServer from '../hooks/useIsServer'
 import GetDailyAverage from '../use-cases/water_analytics/get_daily_average'
 import GetWaterAnalytics from '../use-cases/water_analytics/get_water_analytics'
+import GetWeeklyAverage from '../use-cases/water_analytics/get_weekly_average'
 import SetWaterAnalytics from '../use-cases/water_analytics/set_water_analytics'
 import { useWaterProgressContext } from './water-progress'
 
@@ -42,7 +43,7 @@ export const WaterAnalyticsContextProvider: React.FC = ({ children }) => {
   const isFirstRender = useIsServer()
 
   const [dailyAverage, setDailyAverage] = useState(GetDailyAverage())
-  const [weeklyAverage] = useState(0)
+  const [weeklyAverage, setWeeklyAverage] = useState(GetWeeklyAverage())
 
   useEffect(() => {
     if (isFirstRender) return
@@ -62,6 +63,8 @@ export const WaterAnalyticsContextProvider: React.FC = ({ children }) => {
     if (isFirstRender) return
 
     setDailyAverage(GetDailyAverage(lastProgress))
+    setWeeklyAverage(GetWeeklyAverage(lastProgress))
+
     const newAnalytics = {
       ...waterAnalytics,
       history: [...waterAnalytics.history, lastProgress]

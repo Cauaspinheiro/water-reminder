@@ -9,5 +9,5 @@ export default function GetDailyAverage(additionalNumber = 0): number {
 
   sumHistory += additionalNumber
 
-  return sumHistory / history.length
+  return Math.round(sumHistory / history.length)
 }
