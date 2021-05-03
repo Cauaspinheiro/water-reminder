@@ -1,6 +1,10 @@
 import { FC } from 'react'
 
+import { useWaterAnalyticsContext } from '../context/water-analytics'
+
 const Sidebar: FC = () => {
+  const { total, weeklyAverage, dailyAverage } = useWaterAnalyticsContext()
+
   return (
     <aside className="flex flex-col justify-between h-full my-16 mr-32 ">
       <img src="/images/sidebar-logo.png" width="160" height="102" />
@@ -11,18 +15,18 @@ const Sidebar: FC = () => {
         <div className="flex flex-col gap-4">
           <div>
             <h4 className="text-2xl text-title">Diária</h4>
-            <span className="text-lg text-content">1000ml</span>
+            <span className="text-lg text-content">{dailyAverage}ml</span>
           </div>
 
           <div>
             <h4 className="text-2xl text-title">Semanal</h4>
-            <span className="text-lg text-content">6000ml</span>
+            <span className="text-lg text-content">{weeklyAverage}ml</span>
           </div>
         </div>
 
         <div>
           <h3 className="mb-1 text-4xl text-title">Seu Total</h3>
-          <span className="text-2xl text-content">20000ml</span>
+          <span className="text-2xl text-content">{total}ml</span>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import {
   useState
 } from 'react'
 
+import { ConfigSchema } from '../store/config-store'
 import CreateWaterNotification from '../use-cases/create_water_notification'
 import GetWaterProgress from '../use-cases/water_progress/get_water_progress'
 import GetWaterProgressConfig from '../use-cases/water_progress/get_water_progress_config'
@@ -17,12 +18,15 @@ interface State {
   progress: {
     meta: number
     achieved: number
+    lastProgress: number
   }
   remainingTime: {
     minutes: number
     seconds: number
   }
   percent: number
+  config: ConfigSchema['water_progress']
+  resetDay: boolean
 }
 
 interface Actions {
@@ -37,7 +41,7 @@ const Context = createContext<WaterProgressContext | null>(null)
 export function useWaterProgressContext(): WaterProgressContext {
   const value = useContext(Context)
 
-  if (value === null) throw new Error('WATER CONTEXT NOT PROVIDED')
+  if (value === null) throw new Error('WATER PROGRESS CONTEXT NOT PROVIDED')
 
   return value
 }
@@ -49,20 +53,22 @@ export const WaterProgressContext: React.FC = ({ children }) => {
 
   const [progress, setProgress] = useState(GetWaterProgress())
   const [timeInSeconds, setTimeInSeconds] = useState(config.seconds_to_drink)
-
-  const [checkResetTimer, setCheckResetTimer] = useState(true)
+  const [resetDay, setResetDay] = useState(false)
+  const [checkResetTimer, setCheckResetTimer] = useState(false)
 
   const percent = useMemo<number>(() => {
-    return Math.round((progress / config.meta) * 100)
+    return Math.round((progress.actual_progress / config.meta) * 100)
   }, [config.meta, progress])
 
   const addWater = useCallback(
     (water: number) => {
-      const sumWater = water + progress
+      const sumWater = water + progress.actual_progress
 
-      SetWaterProgress(sumWater)
+      const newProgress = { ...progress, actual_progress: sumWater }
 
-      setProgress(sumWater)
+      SetWaterProgress(newProgress)
+
+      setProgress(newProgress)
     },
     [progress]
   )
@@ -87,12 +93,13 @@ export const WaterProgressContext: React.FC = ({ children }) => {
   }, [addWater, config.quant_water_on_drink, config.seconds_to_drink, percent])
 
   const resetTimeout = useCallback(() => {
-    ResetWaterProgress()
+    ResetWaterProgress(progress.actual_progress)
 
     clearTimeout(waterCountdown)
     setTimeInSeconds(config.seconds_to_drink)
-    setProgress(0)
-  }, [config.seconds_to_drink])
+
+    setProgress(p => ({ last_progress: p.actual_progress, actual_progress: 0 }))
+  }, [config.seconds_to_drink, progress.actual_progress])
 
   useEffect(() => {
     if (timeInSeconds > 0) {
@@ -125,17 +132,19 @@ export const WaterProgressContext: React.FC = ({ children }) => {
 
       if (hours === resetHours && minutes === resetMinutes) {
         resetTimeout()
+        setResetDay(!resetDay)
       }
 
       setCheckResetTimer(!checkResetTimer)
     }, 1000 * 60)
-  }, [checkResetTimer, config.daily_reset_time, resetTimeout])
+  }, [checkResetTimer, config.daily_reset_time, resetDay, resetTimeout])
 
   const value = useMemo<WaterProgressContext>(
     () => ({
       progress: {
-        achieved: progress,
-        meta: config.meta
+        achieved: progress.actual_progress,
+        meta: config.meta,
+        lastProgress: progress.last_progress
       },
       addWater,
       remainingTime: {
@@ -143,9 +152,11 @@ export const WaterProgressContext: React.FC = ({ children }) => {
         seconds: timeInSeconds % 60
       },
       resetTimeout,
-      percent
+      percent,
+      config,
+      resetDay
     }),
-    [addWater, config.meta, percent, progress, resetTimeout, timeInSeconds]
+    [addWater, config, percent, progress, resetDay, resetTimeout, timeInSeconds]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>

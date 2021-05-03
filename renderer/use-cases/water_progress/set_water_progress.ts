@@ -1,5 +1,9 @@
-import waterProgressStore from '../../store/water-progress-store'
+import waterProgressStore, {
+  WaterProgressSchema
+} from '../../store/water-progress-store'
 
-export default function SetWaterProgress(progressData: number): void {
+export default function SetWaterProgress(
+  progressData: WaterProgressSchema
+): void {
   waterProgressStore.set('water_progress', progressData)
 }

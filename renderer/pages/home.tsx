@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex items-center justify-between flex-1 w-screen h-screen px-20 py-9 ">
-      <Sidebar />
+      {!isServer && <Sidebar />}
 
       <div className="flex flex-col items-center justify-between w-full h-full">
         <h1 className="mt-6 text-5xl font-semibold text-title">
