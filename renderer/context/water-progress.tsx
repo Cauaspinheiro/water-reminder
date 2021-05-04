@@ -149,7 +149,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
       reset()
     }
 
-    if (hours === resetHours && minutes === resetMinutes) {
+    if (hours == resetHours && minutes == resetMinutes) {
       reset()
     }
 

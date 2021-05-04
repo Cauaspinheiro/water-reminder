@@ -3,5 +3,5 @@
 @tailwind components;
 
 body {
-  @apply w-screen h-screen text-base font-semibold bg-page font-poppins;
+  @apply w-screen h-screen overflow-hidden text-base font-semibold bg-page font-poppins;
 }
