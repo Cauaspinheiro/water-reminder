@@ -5,6 +5,7 @@ import LinearProgressIndicator from '../components/LinearProgressIndicator'
 import Sidebar from '../components/Sidebar'
 import WaterDrop from '../components/WaterDrop'
 import { useWaterProgressContext } from '../context/water-progress'
+import useHomeTitle from '../hooks/useHomeTitle'
 import useIsServer from '../hooks/useIsServer'
 import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
 
@@ -13,6 +14,8 @@ const Home: React.FC = () => {
 
   const isServer = useIsServer()
 
+  const homeTitle = useHomeTitle()
+
   const formattedRemainingTime = useMemo(() => {
     return {
       minutes: getTwoDigitsNumber(remainingTime.minutes),
@@ -20,16 +23,14 @@ const Home: React.FC = () => {
     }
   }, [remainingTime])
 
-  if (isServer) return <div></div>
+  if (isServer) return <div />
 
   return (
     <div className="flex items-center justify-between flex-1 w-screen h-screen px-16 py-9 ">
       <Sidebar />
 
       <div className="flex flex-col items-center justify-between w-full h-full">
-        <h1 className="mt-6 text-5xl font-semibold text-title">
-          Você está indo bem!
-        </h1>
+        <h1 className="mt-6 text-4xl font-semibold text-title">{homeTitle}</h1>
 
         <div className="relative flex items-center justify-center h-full ">
           <WaterDrop />
