@@ -4,6 +4,7 @@ import {
   BrowserWindowConstructorOptions
 } from 'electron'
 import Store from 'electron-store'
+import path from 'path'
 
 export default (
   windowName: string,
@@ -72,6 +73,7 @@ export default (
   const browserOptions: BrowserWindowConstructorOptions = {
     ...options,
     ...state,
+    icon: path.join(__dirname, '..', 'resources', 'icon.ico'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
