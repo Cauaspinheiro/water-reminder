@@ -120,7 +120,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
   }, [notification, timeInSeconds])
 
   const handleReset = useCallback(() => {
-    const hours = getTwoDigitsNumber(new Date().getUTCHours() - 3)
+    const hours = getTwoDigitsNumber(new Date().getHours())
     const minutes = getTwoDigitsNumber(new Date().getUTCMinutes())
 
     const resetHours = config.daily_reset_time.substring(0, 2)
@@ -141,8 +141,6 @@ export const WaterProgressContext: React.FC = ({ children }) => {
       setProgress(p => ({ ...p, last_reset: resetTime }))
       waterProgressStore.set('water_progress.last_reset', resetTime)
     }
-
-    console.log(`resetTime: ${resetTime - 86400000} >= ${progress.last_reset}`)
 
     if (
       progress.last_reset &&
