@@ -41,7 +41,7 @@ const renderApp = async () => {
     event.preventDefault()
     mainWindow.hide()
 
-    tray = new Tray(path.join(__dirname, '..', 'resources', 'icon.ico'))
+    tray = new Tray(path.join(__dirname, '..', 'resources', 'tray.png'))
 
     tray.setContextMenu(
       Menu.buildFromTemplate([

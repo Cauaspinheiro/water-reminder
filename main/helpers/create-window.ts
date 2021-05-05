@@ -73,7 +73,9 @@ export default (
   const browserOptions: BrowserWindowConstructorOptions = {
     ...options,
     ...state,
-    icon: path.join(__dirname, '..', 'resources', 'icon.ico'),
+    frame: true,
+
+    icon: path.join(__dirname, '..', 'resources', 'app.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
