@@ -31,7 +31,7 @@ const Sidebar: FC = () => {
       animate="visible"
       transition={{ duration: 1.4 }}
       variants={variants}
-      className="flex flex-col justify-between h-full my-16 mr-32 "
+      className="flex-col justify-between hidden h-full my-16 mr-10 xl:flex min-w-max "
     >
       <img src="/images/sidebar-logo.png" width="160" height="102" />
 
@@ -41,7 +41,7 @@ const Sidebar: FC = () => {
         whileHover="onHover"
         transition={{ duration: 1 }}
         variants={analyticsVariants}
-        className="flex flex-col px-8 border-2 py-14 w-72 bg-container rounded-3xl gap-y-10"
+        className="flex flex-col w-full px-8 border-2 py-14 bg-container rounded-3xl gap-y-10"
       >
         <h3 className="text-4xl text-title">Sua média</h3>
 

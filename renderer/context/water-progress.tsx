@@ -28,7 +28,6 @@ interface State {
   }
   percent: number
   config: ConfigSchema['water_progress']
-  resetDay: boolean
 }
 
 interface Actions {
@@ -55,7 +54,6 @@ export const WaterProgressContext: React.FC = ({ children }) => {
 
   const [progress, setProgress] = useState(GetWaterProgress())
   const [timeInSeconds, setTimeInSeconds] = useState(config.seconds_to_drink)
-  const [resetDay, setResetDay] = useState(false)
   const [checkResetTimer, setCheckResetTimer] = useState(false)
 
   const percent = useMemo<number>(() => {
@@ -136,7 +134,6 @@ export const WaterProgressContext: React.FC = ({ children }) => {
 
     const reset = () => {
       resetTimeout()
-      setResetDay(!resetDay)
 
       setProgress(p => ({ ...p, last_reset: resetTime }))
       waterProgressStore.set('water_progress.last_reset', resetTime)
@@ -158,7 +155,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
     checkResetTimer,
     config.daily_reset_time,
     progress.last_reset,
-    resetDay,
+    ,
     resetTimeout
   ])
 
@@ -189,10 +186,9 @@ export const WaterProgressContext: React.FC = ({ children }) => {
       },
       resetTimeout,
       percent,
-      config,
-      resetDay
+      config
     }),
-    [addWater, config, percent, progress, resetDay, resetTimeout, timeInSeconds]
+    [addWater, config, percent, progress, , resetTimeout, timeInSeconds]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>

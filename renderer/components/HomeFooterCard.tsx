@@ -29,9 +29,11 @@ const HomeFooterCard: React.FC<HomeFooterCard> = props => {
         repeatType: 'reverse'
       }}
       variants={variants}
-      className="flex flex-col items-center justify-between flex-1 h-full p-8 border-2 rounded-3xl bg-container"
+      className="flex flex-col items-center justify-between flex-1 h-full p-6 border-2 md:p-8 rounded-3xl bg-container"
     >
-      <h3 className="text-2xl text-title">{props.title}</h3>
+      <h3 className="text-xl text-center md:text-2xl text-title">
+        {props.title}
+      </h3>
       {props.children}
     </motion.div>
   )

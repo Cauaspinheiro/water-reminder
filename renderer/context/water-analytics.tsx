@@ -34,8 +34,7 @@ export function useWaterAnalyticsContext(): WaterAnalyticsContext {
 export const WaterAnalyticsContextProvider: React.FC = ({ children }) => {
   const {
     progress: { achieved: waterAchieved, lastProgress },
-    config: { quant_water_on_drink },
-    resetDay
+    config: { quant_water_on_drink }
   } = useWaterProgressContext()
 
   const [waterAnalytics, setWaterAnalytics] = useState(GetWaterAnalytics())
@@ -74,7 +73,7 @@ export const WaterAnalyticsContextProvider: React.FC = ({ children }) => {
 
     SetWaterAnalytics(newAnalytics)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastProgress, resetDay])
+  }, [lastProgress])
 
   const value = useMemo<WaterAnalyticsContext>(
     () => ({ total: waterAnalytics.total, dailyAverage, weeklyAverage }),

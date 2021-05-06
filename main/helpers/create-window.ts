@@ -74,7 +74,8 @@ export default (
     ...options,
     ...state,
     frame: true,
-
+    minWidth: 768,
+    minHeight: 768,
     icon: path.join(__dirname, '..', 'resources', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -84,6 +85,8 @@ export default (
     }
   }
   const win = new BrowserWindow(browserOptions)
+
+  win.setMenuBarVisibility(false)
 
   win.on('close', saveState)
 
