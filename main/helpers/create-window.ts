@@ -75,7 +75,7 @@ export default (
     ...state,
     frame: true,
 
-    icon: path.join(__dirname, '..', 'resources', 'app.png'),
+    icon: path.join(__dirname, '..', 'resources', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

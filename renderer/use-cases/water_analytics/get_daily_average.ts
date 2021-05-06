@@ -9,5 +9,7 @@ export default function GetDailyAverage(additionalNumber = 0): number {
 
   sumHistory += additionalNumber
 
-  return Math.round(sumHistory / history.length)
+  const newLocal = Math.round(sumHistory / history.length)
+
+  return newLocal || 0
 }

@@ -1,12 +1,12 @@
 {
-  "name": "my-nextron-app",
-  "description": "My application description",
-  "version": "0.1.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "name": "water-reminder",
+  "version": "0.5.0",
+  "author": "Cauã Pinheiro <cauaspinheiro@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
     "build": "nextron build",
+    "build:win64": "nextron build --win --x64",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: com.water_reminder.water_reminder
+productName: Water Reminder
+copyright: Copyright © 2021 Cauã Pinheiro
 directories:
   output: dist
   buildResources: resources
@@ -9,4 +9,5 @@ files:
     filter:
       - package.json
       - app
+      - resources/tray.png
 publish: null

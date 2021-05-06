@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import { motion, Variants } from 'framer-motion'
+import path from 'path'
 
 import AnimatedNumber from '../components/AnimatedNumber'
 import HomeFooterCard from '../components/HomeFooterCard'

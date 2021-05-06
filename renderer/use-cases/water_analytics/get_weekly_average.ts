@@ -21,5 +21,5 @@ export default function GetWeeklyAverage(additionalNumber = 0): number {
 
   weeklyAverages.forEach(value => (sumHistory += value))
 
-  return Math.round(sumHistory / weeklyAverages.length)
+  return Math.round(sumHistory / weeklyAverages.length) || 0
 }
