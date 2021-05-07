@@ -25,9 +25,15 @@ if (isProd) {
 const renderApp = async () => {
   await app.whenReady()
 
+  const singleInstanceLock = app.requestSingleInstanceLock()
+
+  if (!singleInstanceLock) {
+    return app.quit()
+  }
+
   const mainWindow = createWindow('main', {
-    width: 1000,
-    height: 600
+    width: 1440,
+    height: 800
   })
 
   let tray: Tray | null = null
