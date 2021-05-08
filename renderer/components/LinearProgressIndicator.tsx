@@ -9,10 +9,7 @@ const LinearProgressIndicator: React.FC<LinearProgressIndicatorProps> = props =>
     props.percent > 0 ? (props.percent < 8 ? 8 : props.percent) : 0
 
   return (
-    <div
-      style={{ width: 300, background: '#3e4e62' }}
-      className="h-6 rounded-2xl"
-    >
+    <div style={{ background: '#3e4e62' }} className="w-full h-6 rounded-2xl">
       <div
         className="h-full max-w-full transition-all duration-1000 rounded-2xl bg-gradient"
         style={{ width: `${percent}%` }}

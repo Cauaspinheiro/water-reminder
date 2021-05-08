@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { motion, Variants } from 'framer-motion'
 
 import AnimatedNumber from '../components/AnimatedNumber'
+import ConfigButton from '../components/ConfigButton'
 import HomeFooterCard from '../components/HomeFooterCard'
 import LinearProgressIndicator from '../components/LinearProgressIndicator'
 import Sidebar from '../components/Sidebar'
@@ -10,6 +11,7 @@ import WaterDrop from '../components/WaterDrop'
 import { useWaterProgressContext } from '../context/water-progress'
 import useHomeTitle from '../hooks/useHomeTitle'
 import useIsServer from '../hooks/useIsServer'
+import styles from '../styles/pages/home.module.css'
 import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
 
 const Home: React.FC = () => {
@@ -44,22 +46,26 @@ const Home: React.FC = () => {
       animate="visible"
       transition={{ duration: 1 }}
       variants={variants}
-      className="flex items-center justify-between h-full px-10 pt-4 pb-12 lg:px-16"
+      className="flex items-center justify-between flex-1 h-screen px-10 py-6 lg:px-16"
     >
       <Sidebar />
 
-      <div className="flex flex-col items-center justify-between w-full h-full xl:ml-24">
+      <div
+        className={`${styles.content_container} flex flex-col items-center justify-between w-full h-full xl:ml-24 content-container`}
+      >
         <motion.h1 className="mt-6 text-4xl font-semibold text-title">
           {homeTitle}
         </motion.h1>
 
-        <div className="relative flex items-center justify-center w-full water-drop">
+        <div
+          className={`${styles.water_drop} relative items-center justify-center hidden xl:flex`}
+        >
           <WaterDrop />
 
           <AnimatedNumber
             componentProps={{
               className:
-                'absolute text-6xl font-semibold text-title font-poppins top-2/3'
+                'absolute text-6xl font-semibold text-title font-poppins top-2/3 pt-4'
             }}
             initialValue={percent}
             to={percent}
@@ -74,8 +80,10 @@ const Home: React.FC = () => {
           animate="visible"
           variants={footerVariants}
           transition={{ duration: 1.4 }}
-          className="flex items-center justify-around w-full h-44 gap-x-4 lg:gap-x-16"
+          className="flex flex-col-reverse items-center justify-around w-full h-full py-8 xl:flex-row xl:py-0 gap-y-12 xl:h-44 gap-x-4 lg:gap-x-16"
         >
+          <ConfigButton className="justify-center block h-full p-6 xl:hidden md:p-8 config-button" />
+
           <HomeFooterCard title="Seu nível de água" variant="hover">
             <LinearProgressIndicator percent={percent} />
 
@@ -90,7 +98,7 @@ const Home: React.FC = () => {
           </HomeFooterCard>
 
           <HomeFooterCard title="Você irá beber água em" variant="infinite">
-            <span className="text-5xl md:text-6xl text-content">
+            <span className="text-6xl text-content">
               {formattedRemainingTime.minutes}:{formattedRemainingTime.seconds}
             </span>
           </HomeFooterCard>

@@ -3,7 +3,9 @@ import { FC } from 'react'
 import { motion, Variants } from 'framer-motion'
 
 import { useWaterAnalyticsContext } from '../context/water-analytics'
+import styles from '../styles/components/sidebar.module.css'
 import AnimatedNumber from './AnimatedNumber'
+import ConfigButton from './ConfigButton'
 
 const Sidebar: FC = () => {
   const { total, weeklyAverage, dailyAverage } = useWaterAnalyticsContext()
@@ -31,7 +33,7 @@ const Sidebar: FC = () => {
       animate="visible"
       transition={{ duration: 1.4 }}
       variants={variants}
-      className="flex-col justify-between hidden h-full my-16 mr-10 xl:flex min-w-max "
+      className={`${styles.sidebar} flex-col justify-between hidden h-full my-16 mr-10 xl:flex min-w-max`}
     >
       <img src="/images/sidebar-logo.png" width="160" height="102" />
 
@@ -41,7 +43,7 @@ const Sidebar: FC = () => {
         whileHover="onHover"
         transition={{ duration: 1 }}
         variants={analyticsVariants}
-        className="flex flex-col w-full px-8 border-2 py-14 bg-container rounded-3xl gap-y-10"
+        className={`${styles.analytics} flex flex-col w-full px-8 border-2 py-14 bg-container rounded-3xl gap-y-10`}
       >
         <h3 className="text-4xl text-title">Sua média</h3>
 
@@ -87,18 +89,7 @@ const Sidebar: FC = () => {
         </div>
       </motion.div>
 
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        whileHover="onHover"
-        transition={{ duration: 1 }}
-        variants={analyticsVariants}
-        className="flex items-center justify-around w-full px-5 border-2 cursor-pointer py-9 rounded-3xl bg-container"
-      >
-        <img src="/images/config.svg" />
-
-        <h3 className="text-2xl text-title">Configurações</h3>
-      </motion.div>
+      <ConfigButton className="justify-around" />
     </motion.aside>
   )
 }
