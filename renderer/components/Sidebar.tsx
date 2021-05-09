@@ -84,7 +84,8 @@ const Sidebar: FC = () => {
           <AnimatedNumber
             initialValue={total}
             to={total}
-            textPattern="{number}ml"
+            fixedNumbers={2}
+            textPattern="{number} litros"
             componentProps={{ className: 'text-2xl text-content' }}
           >
             {motion.span}

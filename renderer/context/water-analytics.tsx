@@ -11,6 +11,7 @@ import GetDailyAverage from '../use-cases/water_analytics/get_daily_average'
 import GetWaterAnalytics from '../use-cases/water_analytics/get_water_analytics'
 import GetWeeklyAverage from '../use-cases/water_analytics/get_weekly_average'
 import SetWaterAnalytics from '../use-cases/water_analytics/set_water_analytics'
+import { toLiter } from '../utils/water_transform'
 import { useWaterProgressContext } from './water-progress'
 
 interface State {
@@ -49,7 +50,7 @@ export const WaterAnalyticsContextProvider: React.FC = ({ children }) => {
 
     const newAnalytics = {
       ...waterAnalytics,
-      total: waterAnalytics.total + quant_water_on_drink
+      total: waterAnalytics.total + toLiter(quant_water_on_drink)
     }
 
     setWaterAnalytics(newAnalytics)

@@ -9,6 +9,7 @@ export interface AnimatedNumberProps {
   initialValue: number
   animationConfig?: AnimationControls
   textPattern: string
+  fixedNumbers?: number
 }
 
 const AnimatedNumber: React.FC<AnimatedNumberProps> = props => {
@@ -27,13 +28,19 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = props => {
 
         ref.current.textContent = props.textPattern.replaceAll(
           '{number}',
-          value.toFixed(0)
+          value.toFixed(props.fixedNumbers || 0)
         )
       }
     })
 
     return controls.stop
-  }, [props.animationConfig, props.textPattern, props.to, x])
+  }, [
+    props.animationConfig,
+    props.fixedNumbers,
+    props.textPattern,
+    props.to,
+    x
+  ])
 
   return <props.children ref={ref} {...props.componentProps} />
 }
