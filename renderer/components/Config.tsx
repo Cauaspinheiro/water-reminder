@@ -46,17 +46,27 @@ const Config: FC = () => {
 
   const handleExit = () => {
     if (isConfigChanged) {
-      if (confirm('Deseja sair? Você tem alterações não salvas')) {
-        setConfig(GetConfig())
-        setIsConfigChanged(false)
+      const isConfirmed = confirm('Deseja sair? Você tem alterações não salvas')
 
-        return toggleDrawer()
-      }
+      if (!isConfirmed) return
 
-      return
+      setConfig(GetConfig())
+      setIsConfigChanged(false)
     }
 
     return toggleDrawer()
+  }
+
+  const handleResetToDefault = () => {
+    const isConfirmed = confirm(
+      'Deseja deixar as configurações para as padrões do aplicativo?'
+    )
+
+    if (!isConfirmed) return
+
+    SetConfigUseCase({} as never)
+
+    remote.getCurrentWindow().reload()
   }
 
   const variants: Variants = {
@@ -85,9 +95,19 @@ const Config: FC = () => {
           onClick={handleExit}
         />
 
-        <h2 className="mt-10 text-4xl font-semibold font-poppins text-title">
-          Configurações
-        </h2>
+        <div className="flex items-center justify-between w-full mt-10">
+          <h2 className="text-4xl font-semibold font-poppins text-title">
+            Configurações
+          </h2>
+
+          <img
+            src="/images/refresh.svg"
+            width={18}
+            height={18}
+            className="cursor-pointer"
+            onClick={handleResetToDefault}
+          />
+        </div>
 
         <form
           className="flex flex-col w-full mt-20 gap-y-10"
@@ -147,7 +167,6 @@ const Config: FC = () => {
             </button>
             <button
               type="reset"
-              value=""
               className="h-full text-xl font-bold text-white transition-shadow shadow-none focus:outline-none w-44 bg-cancel-gradient rounded-2xl font-poppins hover:shadow-2xl"
             >
               Descartar
