@@ -61,7 +61,7 @@ const Config: FC = () => {
 
   const variants: Variants = {
     initial: {
-      left: '-100vw'
+      left: '-110vw'
     },
     active: {
       left: 0
@@ -76,7 +76,7 @@ const Config: FC = () => {
       transition={{ duration: 0.8, bounce: false }}
       className="absolute flex justify-between w-screen h-screen"
     >
-      <div className="flex flex-col w-8/12 h-screen p-16 min-w-max bg-container">
+      <div className="flex flex-col w-8/12 h-screen px-6 py-16 lg:px-16 min-w-max bg-container">
         <img
           src="/images/x.svg"
           width={18}
@@ -133,10 +133,7 @@ const Config: FC = () => {
               name="daily_reset_time"
               value={config.water_progress.daily_reset_time}
               onChangeText={value =>
-                handleChangeWaterProgressInput(
-                  'daily_reset_time',
-                  Number(value)
-                )
+                handleChangeWaterProgressInput('daily_reset_time', value)
               }
             />
           </div>

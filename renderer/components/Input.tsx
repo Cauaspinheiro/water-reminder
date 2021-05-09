@@ -20,7 +20,7 @@ const Input: React.FC<InputProps> = ({
   ...inputProps
 }) => {
   return (
-    <div className="flex flex-col w-full gap-y-5">
+    <div className="flex flex-col justify-between w-full gap-y-5">
       <label
         className="text-xl font-semibold font-poppins text-title"
         htmlFor={name}
