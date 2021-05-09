@@ -1,9 +1,8 @@
-import React from 'react'
-
 import { motion, Variants } from 'framer-motion'
 
 interface ConfigButtonProps {
   className?: string
+  setIsActive(): void
 }
 
 const ConfigButton: React.FC<ConfigButtonProps> = props => {
@@ -21,6 +20,7 @@ const ConfigButton: React.FC<ConfigButtonProps> = props => {
 
   return (
     <motion.div
+      onClick={props.setIsActive}
       initial="hidden"
       animate="visible"
       whileHover="onHover"

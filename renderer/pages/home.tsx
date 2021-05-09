@@ -3,11 +3,13 @@ import { useMemo } from 'react'
 import { motion, Variants } from 'framer-motion'
 
 import AnimatedNumber from '../components/AnimatedNumber'
+import Config from '../components/Config'
 import ConfigButton from '../components/ConfigButton'
 import HomeFooterCard from '../components/HomeFooterCard'
 import LinearProgressIndicator from '../components/LinearProgressIndicator'
 import Sidebar from '../components/Sidebar'
 import WaterDrop from '../components/WaterDrop'
+import { useAppContext } from '../context/app'
 import { useWaterProgressContext } from '../context/water-progress'
 import useHomeTitle from '../hooks/useHomeTitle'
 import useIsServer from '../hooks/useIsServer'
@@ -16,6 +18,7 @@ import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
 
 const Home: React.FC = () => {
   const { progress, percent, remainingTime } = useWaterProgressContext()
+  const { toggleDrawer } = useAppContext()
 
   const isServer = useIsServer()
 
@@ -46,12 +49,12 @@ const Home: React.FC = () => {
       animate="visible"
       transition={{ duration: 1 }}
       variants={variants}
-      className="flex items-center justify-between flex-1 h-screen px-10 py-6 lg:px-16"
+      className="flex items-center justify-between flex-1 h-screen py-6 pr-10 lg:pr-16"
     >
       <Sidebar />
 
       <div
-        className={`${styles.content_container} flex flex-col items-center justify-between w-full h-full xl:ml-24 content-container`}
+        className={`${styles.content_container} pl-10 xl:pl-0 flex flex-col items-center justify-between w-full h-full xl:ml-24 content-container`}
       >
         <motion.h1 className="mt-6 text-4xl font-semibold text-title">
           {homeTitle}
@@ -82,7 +85,10 @@ const Home: React.FC = () => {
           transition={{ duration: 1.4 }}
           className="flex flex-col-reverse items-center justify-around w-full h-full py-8 xl:flex-row xl:py-0 gap-y-12 xl:h-44 gap-x-4 lg:gap-x-16"
         >
-          <ConfigButton className="justify-center block h-full p-6 xl:hidden md:p-8 config-button" />
+          <ConfigButton
+            setIsActive={toggleDrawer}
+            className="justify-center block h-full p-6 xl:hidden md:p-8 config-button"
+          />
 
           <HomeFooterCard title="Seu nível de água" variant="hover">
             <LinearProgressIndicator percent={percent} />
@@ -104,6 +110,8 @@ const Home: React.FC = () => {
           </HomeFooterCard>
         </motion.footer>
       </div>
+
+      <Config />
     </motion.div>
   )
 }

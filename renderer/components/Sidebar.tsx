@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { motion, Variants } from 'framer-motion'
 
+import { useAppContext } from '../context/app'
 import { useWaterAnalyticsContext } from '../context/water-analytics'
 import styles from '../styles/components/sidebar.module.css'
 import AnimatedNumber from './AnimatedNumber'
@@ -9,6 +10,8 @@ import ConfigButton from './ConfigButton'
 
 const Sidebar: FC = () => {
   const { total, weeklyAverage, dailyAverage } = useWaterAnalyticsContext()
+
+  const { toggleDrawer } = useAppContext()
 
   const variants: Variants = {
     hidden: { x: -20 },
@@ -33,7 +36,7 @@ const Sidebar: FC = () => {
       animate="visible"
       transition={{ duration: 1.4 }}
       variants={variants}
-      className={`${styles.sidebar} flex-col justify-between hidden h-full my-16 mr-10 xl:flex min-w-max`}
+      className={`${styles.sidebar} flex-col justify-between hidden h-full my-16 mx-10 xl:flex min-w-max`}
     >
       <img src="/images/sidebar-logo.png" width="160" height="102" />
 
@@ -89,7 +92,7 @@ const Sidebar: FC = () => {
         </div>
       </motion.div>
 
-      <ConfigButton className="justify-around" />
+      <ConfigButton className="justify-around" setIsActive={toggleDrawer} />
     </motion.aside>
   )
 }
