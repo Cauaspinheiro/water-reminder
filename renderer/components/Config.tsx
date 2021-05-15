@@ -1,12 +1,13 @@
-import { FC, FormEvent, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { remote } from 'electron'
 import { motion, Variants } from 'framer-motion'
 
 import { useAppContext } from '../context/app'
+import { ConfigSchema } from '../store/config-store'
 import GetConfig from '../use-cases/get_config'
 import SetConfigUseCase from '../use-cases/set_config'
-import Input from './Input'
+import ConfigForm from './ConfigForm'
 
 const Config: FC = () => {
   const { isConfigActive, toggleDrawer } = useAppContext()
@@ -15,33 +16,18 @@ const Config: FC = () => {
 
   const [isConfigChanged, setIsConfigChanged] = useState(false)
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (data: ConfigSchema) => {
+    console.log(data.water_progress)
 
-    SetConfigUseCase(config)
+    // SetConfigUseCase(config)
 
-    remote.getCurrentWindow().reload()
+    // remote.getCurrentWindow().reload()
   }
 
-  const handleReset = (e: FormEvent) => {
-    e.preventDefault()
-
+  const handleReset = () => {
     setConfig(GetConfig())
     setIsConfigChanged(false)
     toggleDrawer()
-  }
-
-  const handleChangeWaterProgressInput = (
-    name: string,
-    value: string | number
-  ) => {
-    if (!value) return
-
-    setConfig(pastConfig => ({
-      ...pastConfig,
-      water_progress: { ...pastConfig.water_progress, [name]: value }
-    }))
-    setIsConfigChanged(true)
   }
 
   const handleExit = () => {
@@ -109,70 +95,11 @@ const Config: FC = () => {
           />
         </div>
 
-        <form
-          className="flex flex-col w-full mt-20 gap-y-10"
-          onSubmit={handleSubmit}
+        <ConfigForm
+          defaultValue={config}
           onReset={handleReset}
-        >
-          <div className="flex justify-between w-full gap-x-16">
-            <Input
-              label="Quanto quer beber? (ml)"
-              name="quant_water_on_drink"
-              value={config.water_progress.quant_water_on_drink}
-              onChangeText={value =>
-                handleChangeWaterProgressInput(
-                  'quant_water_on_drink',
-                  Number(value)
-                )
-              }
-            />
-            <Input
-              label="Meta diária (ml)"
-              name="meta"
-              value={config.water_progress.meta}
-              onChangeText={value =>
-                handleChangeWaterProgressInput('meta', Number(value))
-              }
-            />
-          </div>
-
-          <div className="flex justify-between w-full gap-x-16">
-            <Input
-              label="Tempo da notificação (segundos)"
-              name="seconds_to_drink"
-              value={config.water_progress.seconds_to_drink}
-              onChangeText={value =>
-                handleChangeWaterProgressInput(
-                  'seconds_to_drink',
-                  Number(value)
-                )
-              }
-            />
-            <Input
-              label="Tempo da reinicialização"
-              name="daily_reset_time"
-              value={config.water_progress.daily_reset_time}
-              onChangeText={value =>
-                handleChangeWaterProgressInput('daily_reset_time', value)
-              }
-            />
-          </div>
-
-          <div className="flex w-full h-16 mt-8 gap-x-4">
-            <button
-              type="submit"
-              className="h-full text-xl font-bold text-white transition-shadow shadow-none focus:outline-none w-44 bg-gradient rounded-2xl font-poppins hover:shadow-2xl"
-            >
-              Salvar
-            </button>
-            <button
-              type="reset"
-              className="h-full text-xl font-bold text-white transition-shadow shadow-none focus:outline-none w-44 bg-cancel-gradient rounded-2xl font-poppins hover:shadow-2xl"
-            >
-              Descartar
-            </button>
-          </div>
-        </form>
+          onSubmit={handleSubmit}
+        />
       </div>
 
       <motion.div
