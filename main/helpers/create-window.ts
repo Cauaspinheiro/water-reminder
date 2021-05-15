@@ -73,7 +73,6 @@ export default (
   const browserOptions: BrowserWindowConstructorOptions = {
     ...options,
     ...state,
-    frame: true,
     minWidth: 768,
     minHeight: 768,
     icon: path.join(__dirname, '..', 'resources', 'icon.png'),
