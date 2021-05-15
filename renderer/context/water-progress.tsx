@@ -49,6 +49,8 @@ export function useWaterProgressContext(): WaterProgressContext {
 
 let waterCountdown: NodeJS.Timeout
 
+const ONE_SECOND = 1000
+
 export const WaterProgressContext: React.FC = ({ children }) => {
   const config = useMemo(GetWaterProgressConfig, [])
 
@@ -109,7 +111,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
     if (timeInSeconds > 0) {
       waterCountdown = setTimeout(() => {
         setTimeInSeconds(timeInSeconds - 1)
-      }, 1000)
+      }, ONE_SECOND)
 
       return
     }
@@ -141,7 +143,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
 
     if (
       progress.last_reset &&
-      resetTime - 1000 * 60 * 60 * 60 * 24 >= progress.last_reset
+      resetTime - ONE_SECOND * 60 * 60 * 24 >= progress.last_reset
     ) {
       reset()
     }
@@ -155,7 +157,6 @@ export const WaterProgressContext: React.FC = ({ children }) => {
     checkResetTimer,
     config.daily_reset_time,
     progress.last_reset,
-    ,
     resetTimeout
   ])
 
@@ -167,7 +168,7 @@ export const WaterProgressContext: React.FC = ({ children }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       handleReset()
-    }, 1000 * 60)
+    }, ONE_SECOND * 60)
 
     return () => clearTimeout(timeout)
   }, [handleReset])
