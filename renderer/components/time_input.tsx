@@ -80,21 +80,21 @@ const TimeInput: React.FC<TimeInputProps> = props => {
 
       <div className="flex items-center gap-x-2 ">
         <input
-          id="first-digit"
+          id={`${props.name}-first-digit`}
           maxLength={1}
           defaultValue={defaultValue[0]}
-          onInput={e => handleChangeValue(e, 0, 'second-digit')}
+          onInput={e => handleChangeValue(e, 0, `${props.name}-second-digit`)}
           onFocus={clearError}
           className={`${error ? inputStyles.invalid : ''} ${
             inputStyles.input
           } ${timeInputStyles.input}`}
         />
         <input
-          id="second-digit"
+          id={`${props.name}-second-digit`}
           maxLength={1}
           onFocus={clearError}
           defaultValue={defaultValue[1]}
-          onInput={e => handleChangeValue(e, 1, 'third-digit')}
+          onInput={e => handleChangeValue(e, 1, `${props.name}-third-digit`)}
           className={`${error ? inputStyles.invalid : ''} ${
             inputStyles.input
           } ${timeInputStyles.input}`}
@@ -102,22 +102,22 @@ const TimeInput: React.FC<TimeInputProps> = props => {
         <span
           className={`${
             error ? 'text-red-500' : 'text-white'
-          } text-lg font-semibold  font-poppins`}
+          } text-2xl font-semibold  font-poppins`}
         >
           :
         </span>
         <input
-          id="third-digit"
+          id={`${props.name}-third-digit`}
           maxLength={1}
           onFocus={clearError}
           defaultValue={defaultValue[3]}
-          onInput={e => handleChangeValue(e, 3, 'forty-digit')}
+          onInput={e => handleChangeValue(e, 3, `${props.name}-fourth-digit`)}
           className={`${error ? inputStyles.invalid : ''} ${
             inputStyles.input
           } ${timeInputStyles.input}`}
         />
         <input
-          id="forty-digit"
+          id={`${props.name}-fourth-digit`}
           maxLength={1}
           onFocus={clearError}
           defaultValue={defaultValue[4]}
