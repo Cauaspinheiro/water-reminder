@@ -75,6 +75,7 @@ export default (
     ...state,
     minWidth: 768,
     minHeight: 768,
+    backgroundColor: '#202833',
     icon: path.join(__dirname, '..', 'resources', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,

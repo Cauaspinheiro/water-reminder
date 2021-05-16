@@ -11,7 +11,11 @@ const ConfigValidationSchema = Yup.object().shape({
         const hours = Number(value.substring(0, 2))
         const minutes = Number(value.substring(3))
 
-        if (Number.isNaN(hours) || Number.isNaN(minutes)) return false
+        if (Number.isNaN(hours)) return false
+        if (hours > 24) return false
+
+        if (Number.isNaN(minutes)) return false
+        if (minutes > 60) return false
 
         return true
       }),
@@ -25,11 +29,24 @@ const ConfigValidationSchema = Yup.object().shape({
       .min(1, 'Digite um número maior que 0')
       .integer('Digite um número inteiro')
       .typeError('Digite um número'),
-    seconds_to_drink: Yup.number()
-      .required('Preencha esse campo')
-      .min(1, 'Digite um número maior que 0')
-      .integer('Digite um número inteiro')
-      .typeError('Digite um número')
+    seconds_to_drink: Yup.number(),
+    drink_time: Yup.string()
+      .required('Digite um tempo válido')
+      .length(5, 'Digite um tempo válido')
+      .test('datetime', 'Digite um tempo válido', value => {
+        if (!value) return false
+
+        const hours = Number(value.substring(0, 2))
+        const minutes = Number(value.substring(3))
+
+        if (Number.isNaN(hours)) return false
+        if (hours > 24) return false
+
+        if (Number.isNaN(minutes)) return false
+        if (minutes > 60) return false
+
+        return true
+      })
   })
 })
 
