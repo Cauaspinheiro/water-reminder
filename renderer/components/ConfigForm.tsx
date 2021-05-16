@@ -9,6 +9,7 @@ import validateSchema from '../validators/config_validator'
 import ConfigValidationSchema from '../validators/schemas/config_validation_schema'
 import UnformValidationError from '../validators/unform_validation_error'
 import Input from './Input'
+import SwitchInput from './switch_input'
 import TimeInput from './time_input'
 
 export interface ConfigFormProps {
@@ -59,7 +60,7 @@ const ConfigForm: React.FC<ConfigFormProps> = props => {
   return (
     <Form
       ref={formRef}
-      className="flex flex-col w-full mt-20 gap-y-10"
+      className="flex flex-col w-full mt-20 gap-y-8"
       onSubmit={handleSubmit}
       onReset={props.onReset}
       initialData={getInitialDataWithDrinkTime()}
@@ -77,6 +78,13 @@ const ConfigForm: React.FC<ConfigFormProps> = props => {
             label="Tempo da reinicialização (HH:MM)"
             name="daily_reset_time"
           />
+        </div>
+      </Scope>
+
+      <Scope path="general_config">
+        <div className="flex w-full gap-x-6 lg:gap-x-11">
+          <SwitchInput label="Iniciar com o computador" name="startup" />
+          <SwitchInput label="Rodar em segundo plano" name="hide_tray" />
         </div>
       </Scope>
 

@@ -1,3 +1,3 @@
 .input {
-  @apply w-16 pl-0 text-xl text-center lg:w-20 rounded-xl;
+  @apply w-16 pl-0 text-2xl text-center lg:w-20 rounded-xl;
 }
