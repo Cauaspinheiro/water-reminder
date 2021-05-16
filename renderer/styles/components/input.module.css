@@ -1,0 +1,13 @@
+.input {
+  @apply w-full h-16 pl-5 text-lg placeholder-gray-200 border-2 outline-none text-title rounded-xl border-input bg-input focus:border-primary;
+}
+
+.invalid {
+  @apply border-red-500;
+}
+
+.error_text {
+  @apply h-6 -mt-2 overflow-hidden text-base font-semibold text-red-500 font-poppins;
+
+  max-width: 25vw;
+}

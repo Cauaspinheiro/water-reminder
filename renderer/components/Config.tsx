@@ -16,12 +16,8 @@ const Config: FC = () => {
 
   const [isConfigChanged, setIsConfigChanged] = useState(false)
 
-  const handleSubmit = (data: ConfigSchema) => {
-    console.log(data.water_progress)
-
-    // SetConfigUseCase(config)
-
-    // remote.getCurrentWindow().reload()
+  const handleSubmit = async (data: ConfigSchema) => {
+    console.log(data)
   }
 
   const handleReset = () => {

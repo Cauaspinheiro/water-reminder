@@ -2,6 +2,8 @@ import React, { DetailedHTMLProps, useEffect, useRef } from 'react'
 
 import { useField } from '@unform/core'
 
+import styles from '../styles/components/input.module.css'
+
 type InputElementProps = DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -15,7 +17,8 @@ export interface InputProps extends InputElementProps {
 const Input: React.FC<InputProps> = ({ label, name, ...inputProps }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { fieldName, defaultValue, registerField } = useField(name)
+  const { fieldName, defaultValue, registerField, error, clearError } =
+    useField(name)
 
   useEffect(() => {
     registerField({
@@ -53,8 +56,11 @@ const Input: React.FC<InputProps> = ({ label, name, ...inputProps }) => {
         name={name}
         ref={inputRef}
         id={name}
-        className="w-full h-16 pl-5 text-lg placeholder-gray-200 border-2 outline-none text-title rounded-xl border-input bg-input focus:border-primary"
+        onFocus={clearError}
+        className={`${error ? styles.invalid : undefined} ${styles.input}`}
       />
+
+      <span className={styles.error_text}>{error}</span>
     </div>
   )
 }

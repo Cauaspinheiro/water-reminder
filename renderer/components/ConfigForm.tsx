@@ -1,9 +1,12 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import { FormHandles, Scope } from '@unform/core'
 import { Form } from '@unform/web'
 
 import { ConfigSchema } from '../store/config-store'
+import validateSchema from '../validators/config_validator'
+import ConfigValidationSchema from '../validators/schemas/config_validation_schema'
+import UnformValidationError from '../validators/unform_validation_error'
 import Input from './Input'
 
 export interface ConfigFormProps {
@@ -15,11 +18,30 @@ export interface ConfigFormProps {
 const ConfigForm: React.FC<ConfigFormProps> = props => {
   const formRef = useRef<FormHandles>(null)
 
+  const handleSubmit = useCallback(
+    async (data: ConfigSchema) => {
+      try {
+        formRef.current?.setErrors({})
+
+        const validatedData = await validateSchema(ConfigValidationSchema, data)
+
+        props.onSubmit(validatedData)
+      } catch (error) {
+        if (error instanceof UnformValidationError) {
+          return formRef.current?.setErrors(error.validationErrors)
+        }
+
+        return alert(error)
+      }
+    },
+    [props]
+  )
+
   return (
     <Form
       ref={formRef}
       className="flex flex-col w-full mt-20 gap-y-10"
-      onSubmit={props.onSubmit}
+      onSubmit={handleSubmit}
       onReset={props.onReset}
       initialData={props.defaultValue}
     >
