@@ -30,12 +30,34 @@ At the moment the only supported language is pt-br.
 
 ![config](.github/config.png)
 
+## Installation
+
+You will need some tools to run the project locally. If you just want to access the app, see the topic [Usage](#usage)
+
+### GIT
+
+- Install git on your machine: https://git-scm.com/downloads
+- With git installed on your machine, clone the repository using the **Code** button at https://github.com/Cauaspinheiro/water-reminder-2
+
+### NodeJS
+
+- Download the LTS version of the node at https://nodejs.org/en/
+- To test whether node is installed on your machine, run the following `node -v` command. The NodeJS version should appear
+
+### Installing the packages
+
+- Inside the project folder, run the following command: `npm install`
+
+---
+
+**Well done!** You can now start using the app, go to the [Scripts](#scripts) tab to see which scripts are available for use
+
 ---
 
 # TODO
 
-## Usage
-
-## Installation for development
+## Scripts
 
 ## Used Tools and conventions
+
+## Usage
