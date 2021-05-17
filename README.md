@@ -72,10 +72,39 @@ npm build
 
 Builds the application executable for your OS
 
+## Used Tools
+
+### Nextron
+
+Combined tools to build Next.js applications into Electron
+
+Link: https://github.com/saltyshiomix/nextron
+
+### TailwindCSS
+
+A utility-first CSS framework packed that can be composed to build any design, directly in your markup.
+
+Link: https://tailwindcss.com/
+
+### Framer Motion
+
+A production-ready motion library for React.
+
+Link: https://www.framer.com/motion/
+
+### Others
+
+You can see all the project's dependencies at the following link: https://github.com/Cauaspinheiro/water-reminder-2/network/dependencies
+
+## Naming Conventions
+
+For better separation and understandability, I use these naming conventions in this project:
+
+React Logic: camelCase
+Everything else: snake_case
+
 ---
 
 # TODO
-
-## Used Tools and conventions
 
 ## Usage
