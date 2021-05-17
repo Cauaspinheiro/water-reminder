@@ -52,11 +52,29 @@ You will need some tools to run the project locally. If you just want to access 
 
 **Well done!** You can now start using the app, go to the [Scripts](#scripts) tab to see which scripts are available for use
 
+## Scripts
+
+All of these scripts can be run on your machine using npm
+
+### dev
+
+```shell script
+npm dev
+```
+
+Runs the application locally
+
+### build
+
+```shell script
+npm build
+```
+
+Builds the application executable for your OS
+
 ---
 
 # TODO
-
-## Scripts
 
 ## Used Tools and conventions
 
