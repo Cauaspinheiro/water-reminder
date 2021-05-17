@@ -1,4 +1,4 @@
-![WATER REMINDER](.github/README.png)
+![WATER REMINDER](.github/readme.png)
 
 # Water Reminder
 
@@ -7,6 +7,13 @@
 Water Reminder is a desktop app using electron to remember the user to drink water periodically. The app also calculates the how much water you is drink for day/week and the total water drank using the app.
 
 At the moment the only supported language is pt-br.
+
+## Features
+
+- Hide to tray when closed
+- Open on startup
+- Calculate how much water you drink every day and week
+- Counts the total water drank by you on the app
 
 ## Screenshots
 
