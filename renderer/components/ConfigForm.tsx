@@ -92,13 +92,13 @@ const ConfigForm: React.FC<ConfigFormProps> = props => {
       <div className="flex w-full h-16 mt-8 gap-x-4">
         <button
           type="submit"
-          className="h-full text-xl font-bold text-white transition-shadow shadow-none focus:outline-none w-44 bg-gradient rounded-2xl font-poppins hover:shadow-2xl"
+          className="h-full text-xl font-bold text-white transition-shadow duration-500 shadow-none focus:outline-none w-44 bg-gradient rounded-2xl font-poppins hover:shadow-2xl"
         >
           Salvar
         </button>
         <button
           type="reset"
-          className="h-full text-xl font-bold text-white transition-shadow shadow-none focus:outline-none w-44 bg-cancel-gradient rounded-2xl font-poppins hover:shadow-2xl"
+          className="h-full text-xl font-bold text-white transition-shadow duration-500 shadow-none focus:outline-none w-44 bg-cancel-gradient rounded-2xl font-poppins hover:shadow-2xl"
         >
           Descartar
         </button>

@@ -4,6 +4,7 @@ import { remote } from 'electron'
 import { motion, Variants } from 'framer-motion'
 
 import { useAppContext } from '../context/app'
+import styles from '../styles/components/config.module.css'
 import GetConfig from '../use-cases/get_config'
 import SetConfigUseCase from '../use-cases/set_config'
 import objectAreEqual from '../utils/objectAreEqual'
@@ -100,7 +101,7 @@ const Config: FC = () => {
             src="/images/refresh.svg"
             width={18}
             height={18}
-            className="cursor-pointer"
+            className={`${styles.reset_default} transition-transform duration-500 transform cursor-pointer`}
             onClick={handleResetToDefault}
           />
         </div>
