@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { motion, Variants } from 'framer-motion'
 
 import AnimatedNumber from '../components/AnimatedNumber'
@@ -14,22 +12,18 @@ import { useWaterProgressContext } from '../context/water-progress'
 import useHomeTitle from '../hooks/useHomeTitle'
 import useIsServer from '../hooks/useIsServer'
 import styles from '../styles/pages/home.module.css'
-import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
 
 const Home: React.FC = () => {
-  const { progress, percent, remainingTime } = useWaterProgressContext()
+  const {
+    progress,
+    percent,
+    remainingTime: { minutes, seconds }
+  } = useWaterProgressContext()
   const { toggleDrawer } = useAppContext()
 
   const isServer = useIsServer()
 
   const homeTitle = useHomeTitle()
-
-  const formattedRemainingTime = useMemo(() => {
-    return {
-      minutes: getTwoDigitsNumber(remainingTime.minutes),
-      seconds: getTwoDigitsNumber(remainingTime.seconds)
-    }
-  }, [remainingTime])
 
   const variants: Variants = {
     hidden: { opacity: 0 },
@@ -105,7 +99,7 @@ const Home: React.FC = () => {
 
           <HomeFooterCard title="Você irá beber água em" variant="infinite">
             <span className="text-6xl text-content">
-              {formattedRemainingTime.minutes}:{formattedRemainingTime.seconds}
+              {minutes}:{seconds}
             </span>
           </HomeFooterCard>
         </motion.footer>

@@ -1,10 +1,10 @@
-import React, { useCallback, useRef } from 'react'
+import React, { FormEvent, useCallback, useRef } from 'react'
 
 import { FormHandles, Scope } from '@unform/core'
 import { Form } from '@unform/web'
 
 import { ConfigSchema } from '../store/config-store'
-import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
+import { secondsToTime } from '../utils/time_seconds_transform'
 import validateSchema from '../validators/config_validator'
 import ConfigValidationSchema from '../validators/schemas/config_validation_schema'
 import UnformValidationError from '../validators/unform_validation_error'
@@ -15,14 +15,20 @@ import TimeInput from './time_input'
 export interface ConfigFormProps {
   defaultValue: ConfigSchema
   onSubmit(config: ConfigSchema): void
-  onReset(): void
+  onReset(e: FormEvent<HTMLFormElement>): void
+}
+
+export type ConfigFormData = ConfigSchema & {
+  water_progress: {
+    drink_time: string
+  }
 }
 
 const ConfigForm: React.FC<ConfigFormProps> = props => {
   const formRef = useRef<FormHandles>(null)
 
   const handleSubmit = useCallback(
-    async (data: ConfigSchema) => {
+    async (data: ConfigFormData) => {
       try {
         formRef.current?.setErrors({})
 
@@ -41,18 +47,13 @@ const ConfigForm: React.FC<ConfigFormProps> = props => {
   )
 
   const getInitialDataWithDrinkTime = () => {
-    const minutes = getTwoDigitsNumber(
-      Math.floor(props.defaultValue.water_progress.seconds_to_drink / 60)
-    )
-    const seconds = getTwoDigitsNumber(
-      props.defaultValue.water_progress.seconds_to_drink % 60
-    )
-
     return {
       ...props.defaultValue,
       water_progress: {
         ...props.defaultValue.water_progress,
-        drink_time: `${minutes}:${seconds}`
+        drink_time: secondsToTime(
+          props.defaultValue.water_progress.seconds_to_drink
+        )
       }
     }
   }

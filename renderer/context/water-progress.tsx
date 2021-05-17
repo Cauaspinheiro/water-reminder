@@ -15,6 +15,7 @@ import GetWaterProgressConfig from '../use-cases/water_progress/get_water_progre
 import ResetWaterProgress from '../use-cases/water_progress/reset_water_progress'
 import SetWaterProgress from '../use-cases/water_progress/set_water_progress'
 import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
+import { secondsToObject } from '../utils/time_seconds_transform'
 
 interface State {
   progress: {
@@ -23,8 +24,8 @@ interface State {
     lastProgress: number
   }
   remainingTime: {
-    minutes: number
-    seconds: number
+    minutes: string
+    seconds: string
   }
   percent: number
   config: ConfigSchema['water_progress']
@@ -182,8 +183,8 @@ export const WaterProgressContext: React.FC = ({ children }) => {
       },
       addWater,
       remainingTime: {
-        minutes: Math.floor(timeInSeconds / 60),
-        seconds: timeInSeconds % 60
+        minutes: secondsToObject(timeInSeconds).left,
+        seconds: secondsToObject(timeInSeconds).right
       },
       resetTimeout,
       percent,

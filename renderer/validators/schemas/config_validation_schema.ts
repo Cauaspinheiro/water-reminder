@@ -1,5 +1,7 @@
 import * as Yup from 'yup'
 
+import { timeToObject } from '../../utils/time_seconds_transform'
+
 const ConfigValidationSchema = Yup.object().shape({
   water_progress: Yup.object().shape({
     daily_reset_time: Yup.string()
@@ -8,14 +10,13 @@ const ConfigValidationSchema = Yup.object().shape({
       .test('datetime', 'Digite um tempo válido', value => {
         if (!value) return false
 
-        const hours = Number(value.substring(0, 2))
-        const minutes = Number(value.substring(3))
+        const { left: hours, right: minutes } = timeToObject(value)
 
         if (Number.isNaN(hours)) return false
-        if (hours > 24) return false
+        if (Number(hours) > 24) return false
 
         if (Number.isNaN(minutes)) return false
-        if (minutes > 60) return false
+        if (Number(minutes) > 60) return false
 
         return true
       }),
@@ -36,14 +37,13 @@ const ConfigValidationSchema = Yup.object().shape({
       .test('datetime', 'Digite um tempo válido', value => {
         if (!value) return false
 
-        const hours = Number(value.substring(0, 2))
-        const minutes = Number(value.substring(3))
+        const { left: hours, right: minutes } = timeToObject(value)
 
         if (Number.isNaN(hours)) return false
-        if (hours > 24) return false
+        if (Number(hours) > 24) return false
 
         if (Number.isNaN(minutes)) return false
-        if (minutes > 60) return false
+        if (Number(minutes) > 60) return false
 
         return true
       })

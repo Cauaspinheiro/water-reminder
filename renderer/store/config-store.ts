@@ -8,6 +8,10 @@ export interface ConfigSchema {
     quant_water_on_drink: number
     daily_reset_time: string
   }
+  general_config: {
+    startup: boolean
+    hide_tray: boolean
+  }
 }
 
 const storeProps: Record<keyof ConfigSchema, JSONSchema> = {
@@ -31,6 +35,14 @@ const storeProps: Record<keyof ConfigSchema, JSONSchema> = {
         type: JSONSchemaType.String,
         default: '00:00'
       }
+    }
+  },
+  general_config: {
+    type: JSONSchemaType.Object,
+    default: {},
+    properties: {
+      startup: { type: JSONSchemaType.Boolean, default: true },
+      hide_tray: { type: JSONSchemaType.Boolean, default: true }
     }
   }
 }

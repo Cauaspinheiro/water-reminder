@@ -7,8 +7,12 @@ export interface SwitchInputProps {
   label: string
 }
 
+interface HTMLDivElementWithValue extends HTMLDivElement {
+  value: boolean
+}
+
 const SwitchInput: FC<SwitchInputProps> = props => {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLDivElementWithValue>(null)
 
   const { fieldName, defaultValue, registerField, error, clearError } =
     useField(props.name)
@@ -38,6 +42,9 @@ const SwitchInput: FC<SwitchInputProps> = props => {
   }, [defaultValue])
 
   const onChange = () => {
+    if (!inputRef.current) return
+
+    inputRef.current.value = !isSelected
     setIsSelected(!isSelected)
   }
 

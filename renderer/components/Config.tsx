@@ -1,42 +1,56 @@
-import { FC, useState } from 'react'
+import { FC, FormEvent, useState } from 'react'
 
 import { remote } from 'electron'
 import { motion, Variants } from 'framer-motion'
 
 import { useAppContext } from '../context/app'
-import { ConfigSchema } from '../store/config-store'
 import GetConfig from '../use-cases/get_config'
 import SetConfigUseCase from '../use-cases/set_config'
-import ConfigForm from './ConfigForm'
+import objectAreEqual from '../utils/objectAreEqual'
+import { minutesTimeToSeconds } from '../utils/time_seconds_transform'
+import ConfigForm, { ConfigFormData } from './ConfigForm'
 
 const Config: FC = () => {
   const { isConfigActive, toggleDrawer } = useAppContext()
 
   const [config, setConfig] = useState(GetConfig())
 
-  const [isConfigChanged, setIsConfigChanged] = useState(false)
+  const handleSubmit = async (data: ConfigFormData) => {
+    const secondsToDrink = minutesTimeToSeconds(data.water_progress.drink_time)
 
-  const handleSubmit = async (data: ConfigSchema) => {
-    console.log(data)
-  }
-
-  const handleReset = () => {
-    setConfig(GetConfig())
-    setIsConfigChanged(false)
-    toggleDrawer()
-  }
-
-  const handleExit = () => {
-    if (isConfigChanged) {
-      const isConfirmed = confirm('Deseja sair? Você tem alterações não salvas')
-
-      if (!isConfirmed) return
-
-      setConfig(GetConfig())
-      setIsConfigChanged(false)
+    const formattedData = {
+      ...data,
+      water_progress: {
+        ...data.water_progress,
+        seconds_to_drink: secondsToDrink,
+        drink_time: undefined
+      }
     }
 
-    return toggleDrawer()
+    if (
+      objectAreEqual(formattedData.general_config, config.general_config) &&
+      objectAreEqual(formattedData.water_progress, config.water_progress)
+    ) {
+      return toggleDrawer()
+    }
+
+    const isConfirmed = confirm('Salvar configurações?')
+
+    if (!isConfirmed) return
+
+    SetConfigUseCase(formattedData)
+
+    remote.getCurrentWindow().reload()
+  }
+
+  const handleReset = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    setConfig(GetConfig())
+
+    console.log(config.water_progress.quant_water_on_drink)
+
+    toggleDrawer()
   }
 
   const handleResetToDefault = () => {
@@ -74,7 +88,7 @@ const Config: FC = () => {
           width={18}
           height={18}
           className="cursor-pointer"
-          onClick={handleExit}
+          onClick={toggleDrawer}
         />
 
         <div className="flex items-center justify-between w-full mt-10">
@@ -107,7 +121,7 @@ const Config: FC = () => {
           delay: isConfigActive ? 0.4 : 0
         }}
         className="flex flex-row-reverse w-4/12 h-screen bg-black bg-opacity-50"
-        onClick={handleExit}
+        onClick={toggleDrawer}
       />
     </motion.div>
   )
