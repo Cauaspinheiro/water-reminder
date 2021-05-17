@@ -12,7 +12,7 @@ import GetWaterAnalytics from '../use-cases/water_analytics/get_water_analytics'
 import GetWeeklyAverage from '../use-cases/water_analytics/get_weekly_average'
 import SetWaterAnalytics from '../use-cases/water_analytics/set_water_analytics'
 import { toLiter } from '../utils/water_transform'
-import { useWaterProgressContext } from './water-progress'
+import { useWaterProgressContext } from './WaterProgress'
 
 interface State {
   total: number

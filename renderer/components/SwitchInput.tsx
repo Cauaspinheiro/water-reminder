@@ -14,8 +14,7 @@ interface HTMLDivElementWithValue extends HTMLDivElement {
 const SwitchInput: FC<SwitchInputProps> = props => {
   const inputRef = useRef<HTMLDivElementWithValue>(null)
 
-  const { fieldName, defaultValue, registerField, error, clearError } =
-    useField(props.name)
+  const { fieldName, defaultValue, registerField } = useField(props.name)
 
   const [isSelected, setIsSelected] = useState(!!defaultValue)
 
@@ -65,8 +64,6 @@ const SwitchInput: FC<SwitchInputProps> = props => {
           </div>
         )}
       </div>
-
-      <span className="">{error}</span>
     </div>
   )
 }

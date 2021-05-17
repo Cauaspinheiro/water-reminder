@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { motion, Variants } from 'framer-motion'
 
 import { useAppContext } from '../context/app'
-import { useWaterAnalyticsContext } from '../context/water-analytics'
+import { useWaterAnalyticsContext } from '../context/WaterAnalytics'
 import styles from '../styles/components/sidebar.module.css'
 import AnimatedNumber from './AnimatedNumber'
 import ConfigButton from './ConfigButton'

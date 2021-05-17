@@ -1,4 +1,4 @@
-import configStore, { ConfigSchema } from '../../store/config-store'
+import configStore, { ConfigSchema } from '../../store/config_store'
 
 export default function SetWaterProgressConfig(
   waterProgressConfigData: ConfigSchema['water_progress']

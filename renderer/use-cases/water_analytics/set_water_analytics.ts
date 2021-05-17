@@ -1,6 +1,6 @@
 import waterAnalyticsStore, {
   WaterAnalyticsSchema
-} from '../../store/water-analytics-store'
+} from '../../store/water_analytics_store'
 
 export default function SetWaterAnalytics(
   analytics: WaterAnalyticsSchema

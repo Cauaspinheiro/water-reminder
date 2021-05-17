@@ -3,14 +3,14 @@ import React, { FormEvent, useCallback, useRef } from 'react'
 import { FormHandles, Scope } from '@unform/core'
 import { Form } from '@unform/web'
 
-import { ConfigSchema } from '../store/config-store'
+import { ConfigSchema } from '../store/config_store'
 import { secondsToTime } from '../utils/time_seconds_transform'
 import validateSchema from '../validators/config_validator'
 import ConfigValidationSchema from '../validators/schemas/config_validation_schema'
 import UnformValidationError from '../validators/unform_validation_error'
 import Input from './Input'
-import SwitchInput from './switch_input'
-import TimeInput from './time_input'
+import SwitchInput from './SwitchInput'
+import TimeInput from './TimeInput'
 
 export interface ConfigFormProps {
   defaultValue: ConfigSchema

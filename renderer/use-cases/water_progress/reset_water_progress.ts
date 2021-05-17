@@ -1,4 +1,4 @@
-import waterProgressStore from '../../store/water-progress-store'
+import waterProgressStore from '../../store/water_progress_store'
 
 export default function ResetWaterProgress(achieved: number): void {
   waterProgressStore.set('water_progress.actual_progress', 0)

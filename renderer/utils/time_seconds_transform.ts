@@ -1,4 +1,4 @@
-import getTwoDigitsNumber from './getTwoDigitsNumber'
+import getTwoDigitsNumber from './get_two_digits_number'
 
 export interface TimeData {
   left: string

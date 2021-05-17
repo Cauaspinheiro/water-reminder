@@ -7,14 +7,14 @@ import {
   useState
 } from 'react'
 
-import { ConfigSchema } from '../store/config-store'
-import waterProgressStore from '../store/water-progress-store'
+import { ConfigSchema } from '../store/config_store'
+import waterProgressStore from '../store/water_progress_store'
 import CreateWaterNotification from '../use-cases/create_water_notification'
 import GetWaterProgress from '../use-cases/water_progress/get_water_progress'
 import GetWaterProgressConfig from '../use-cases/water_progress/get_water_progress_config'
 import ResetWaterProgress from '../use-cases/water_progress/reset_water_progress'
 import SetWaterProgress from '../use-cases/water_progress/set_water_progress'
-import getTwoDigitsNumber from '../utils/getTwoDigitsNumber'
+import getTwoDigitsNumber from '../utils/get_two_digits_number'
 import { secondsToObject } from '../utils/time_seconds_transform'
 
 interface State {

@@ -1,4 +1,4 @@
-import { useWaterProgressContext } from '../context/water-progress'
+import { useWaterProgressContext } from '../context/WaterProgress'
 
 export default function useHomeTitle(): string {
   const { percent } = useWaterProgressContext()

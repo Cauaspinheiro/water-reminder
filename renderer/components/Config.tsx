@@ -7,7 +7,7 @@ import { useAppContext } from '../context/app'
 import styles from '../styles/components/config.module.css'
 import GetConfig from '../use-cases/get_config'
 import SetConfigUseCase from '../use-cases/set_config'
-import objectAreEqual from '../utils/objectAreEqual'
+import objectValuesAreEqual from '../utils/object_values_are_equal'
 import { minutesTimeToSeconds } from '../utils/time_seconds_transform'
 import ConfigForm, { ConfigFormData } from './ConfigForm'
 
@@ -29,8 +29,11 @@ const Config: FC = () => {
     }
 
     if (
-      objectAreEqual(formattedData.general_config, config.general_config) &&
-      objectAreEqual(formattedData.water_progress, config.water_progress)
+      objectValuesAreEqual(
+        formattedData.general_config,
+        config.general_config
+      ) &&
+      objectValuesAreEqual(formattedData.water_progress, config.water_progress)
     ) {
       return toggleDrawer()
     }

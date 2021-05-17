@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { AppContextProvider } from './app'
-import { WaterAnalyticsContextProvider } from './water-analytics'
-import { WaterProgressContext } from './water-progress'
+import { WaterAnalyticsContextProvider } from './WaterAnalytics'
+import { WaterProgressContext } from './WaterProgress'
 
 const GlobalContextProvider: React.FC = ({ children }) => {
   return (
