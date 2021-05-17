@@ -101,6 +101,7 @@ You can see all the project's dependencies at the following link: https://github
 For better separation and understandability, I use these naming conventions in this project:
 
 React Logic: camelCase
+
 Everything else: snake_case
 
 ---
