@@ -1,38 +1,33 @@
-<p align="center"><img src="https://i.imgur.com/NZfsD1p.png"></p>
+![WATER REMINDER](.github/README.png)
+
+# Water Reminder
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/706d0ce70c31e3977832/maintainability)](https://codeclimate.com/github/Cauaspinheiro/water-reminder-2/maintainability)
+
+Water Reminder is a desktop app using electron to remember the user to drink water periodically. The app also calculates the how much water you is drink for day/week and the total water drank using the app.
+
+At the moment the only supported language is pt-br.
+
+## Screenshots
+
+### Full app
+
+![app](.github/app.gif)
+
+### Home Page
+
+![home](.github/home.png)
+
+### Config Page
+
+![config](.github/config.png)
+
+---
+
+# TODO
 
 ## Usage
 
-### Create an App
+## Installation for development
 
-```
-# with npx
-$ npx create-nextron-app my-app --example with-typescript
-
-# with yarn
-$ yarn create nextron-app my-app --example with-typescript
-
-# with pnpx
-$ pnpx create-nextron-app my-app --example with-typescript
-```
-
-### Install Dependencies
-
-```
-$ cd my-app
-
-# using yarn or npm
-$ yarn (or `npm install`)
-
-# using pnpm
-$ pnpm install --shamefully-hoist
-```
-
-### Use it
-
-```
-# development mode
-$ yarn dev (or `npm run dev` or `pnpm run dev`)
-
-# production build
-$ yarn build (or `npm run build` or `pnpm run build`)
-```
+## Used Tools and conventions
