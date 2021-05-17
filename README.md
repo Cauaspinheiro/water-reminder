@@ -4,7 +4,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/706d0ce70c31e3977832/maintainability)](https://codeclimate.com/github/Cauaspinheiro/water-reminder-2/maintainability)
 
-Water Reminder is a desktop app using electron to remember the user to drink water periodically. The app also calculates the how much water you is drink for day/week and the total water drank using the app.
+Water Reminder is a desktop app using electron to remember the user to drink water periodically.
 
 At the moment the only supported language is pt-br.
 
@@ -12,6 +12,7 @@ At the moment the only supported language is pt-br.
 
 - Hide to tray when closed
 - Open on startup
+- Notify when you need to drink water
 - Calculate how much water you drink every day and week
 - Counts the total water drank by you on the app
 
