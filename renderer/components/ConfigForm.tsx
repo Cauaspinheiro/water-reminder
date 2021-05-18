@@ -3,7 +3,7 @@ import React, { FormEvent, useCallback, useRef } from 'react'
 import { FormHandles, Scope } from '@unform/core'
 import { Form } from '@unform/web'
 
-import { ConfigSchema } from '../store/config_store'
+import styles from '../styles/components/config_form.module.css'
 import { secondsToTime } from '../utils/time_seconds_transform'
 import validateSchema from '../validators/config_validator'
 import ConfigValidationSchema from '../validators/schemas/config_validation_schema'
@@ -61,7 +61,7 @@ const ConfigForm: React.FC<ConfigFormProps> = props => {
   return (
     <Form
       ref={formRef}
-      className="flex flex-col w-full mt-20 gap-y-8"
+      className={`${styles.form} flex flex-col w-full mt-20 gap-y-8`}
       onSubmit={handleSubmit}
       onReset={props.onReset}
       initialData={getInitialDataWithDrinkTime()}

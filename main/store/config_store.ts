@@ -1,19 +1,6 @@
 import Store from 'electron-store'
 import { JSONSchema, JSONSchemaType } from 'json-schema-typed'
 
-export interface ConfigSchema {
-  water_progress: {
-    seconds_to_drink: number
-    meta: number
-    quant_water_on_drink: number
-    daily_reset_time: string
-  }
-  general_config: {
-    startup: boolean
-    hide_tray: boolean
-  }
-}
-
 const storeProps: Record<keyof ConfigSchema, JSONSchema> = {
   water_progress: {
     type: JSONSchemaType.Object,
@@ -47,7 +34,7 @@ const storeProps: Record<keyof ConfigSchema, JSONSchema> = {
   }
 }
 
-export default new Store<{ config: ConfigSchema }>({
+const ConfigStore = new Store<{ config: ConfigSchema }>({
   encryptionKey: '',
   name: 'config',
   schema: {
@@ -58,3 +45,5 @@ export default new Store<{ config: ConfigSchema }>({
     }
   }
 })
+
+export default ConfigStore

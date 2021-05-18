@@ -50,13 +50,13 @@ const Home: React.FC = () => {
       <div
         className={`${styles.content_container} pl-10 xl:pl-0 flex flex-col items-center justify-between w-full h-full xl:ml-24 content-container`}
       >
-        <motion.h1 className="mt-6 text-4xl font-semibold text-title">
+        <motion.h1
+          className={`${styles.title} mt-6 text-4xl font-semibold text-title`}
+        >
           {homeTitle}
         </motion.h1>
 
-        <div
-          className={`${styles.water_drop} relative items-center justify-center hidden xl:flex`}
-        >
+        <div className="relative items-center justify-center hidden xl:flex">
           <WaterDrop />
 
           <AnimatedNumber
@@ -91,7 +91,9 @@ const Home: React.FC = () => {
               textPattern={`{number}ml / ${progress.meta}ml`}
               initialValue={progress.achieved}
               to={progress.achieved}
-              componentProps={{ className: 'text-xl text-content' }}
+              componentProps={{
+                className: 'text-xl text-content'
+              }}
             >
               {motion.span}
             </AnimatedNumber>

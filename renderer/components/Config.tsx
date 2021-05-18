@@ -1,9 +1,10 @@
 import { FC, FormEvent, useState } from 'react'
 
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import { motion, Variants } from 'framer-motion'
 
 import { useAppContext } from '../context/app'
+import useIsServer from '../hooks/useIsServer'
 import styles from '../styles/components/config.module.css'
 import GetConfig from '../use-cases/get_config'
 import SetConfigUseCase from '../use-cases/set_config'
@@ -13,6 +14,8 @@ import ConfigForm, { ConfigFormData } from './ConfigForm'
 
 const Config: FC = () => {
   const { isConfigActive, toggleDrawer } = useAppContext()
+
+  const isServer = useIsServer()
 
   const [config, setConfig] = useState(GetConfig())
 
@@ -44,7 +47,7 @@ const Config: FC = () => {
 
     SetConfigUseCase(formattedData)
 
-    remote.getCurrentWindow().reload()
+    if (!isServer) return ipcRenderer.sendSync('reload-window')
   }
 
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
@@ -66,7 +69,7 @@ const Config: FC = () => {
 
     SetConfigUseCase({} as never)
 
-    remote.getCurrentWindow().reload()
+    if (!isServer) return ipcRenderer.sendSync('reload-window')
   }
 
   const variants: Variants = {
@@ -86,7 +89,9 @@ const Config: FC = () => {
       transition={{ duration: 0.8, bounce: false }}
       className="absolute flex justify-between w-screen h-screen"
     >
-      <div className="flex flex-col w-8/12 h-screen px-6 py-16 lg:px-16 min-w-max bg-container">
+      <div
+        className={`${styles.config} flex flex-col w-8/12 h-screen px-6 py-16 lg:px-16 min-w-max bg-container`}
+      >
         <img
           src="/images/x.svg"
           width={18}
@@ -95,7 +100,9 @@ const Config: FC = () => {
           onClick={toggleDrawer}
         />
 
-        <div className="flex items-center justify-between w-full mt-10">
+        <div
+          className={`${styles.title} flex items-center justify-between w-full mt-10`}
+        >
           <h2 className="text-4xl font-semibold font-poppins text-title">
             Configurações
           </h2>

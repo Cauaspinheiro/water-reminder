@@ -104,8 +104,8 @@ React Logic: camelCase
 
 Everything else: snake_case
 
----
-
-# TODO
-
 ## Usage
+
+At the moment, only the windows version is available for download, if you have a different OS, you need to install the project and build in you own machine, for this, please see [Installation Guide](#installation)
+
+Windows .exe file: https://drive.google.com/file/d/1UAmnZGgkDwDxuoC-vocY7ym8W34TpFGe/view?usp=sharing

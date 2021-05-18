@@ -1,5 +1,7 @@
-import configStore, { ConfigSchema } from '../store/config_store'
+import { ipcRenderer } from 'electron'
 
 export default function SetConfigUseCase(config: ConfigSchema): void {
-  configStore.set('config', config)
+  if (!ipcRenderer) return
+
+  ipcRenderer.send('set-config', config)
 }

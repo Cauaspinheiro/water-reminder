@@ -1,3 +1,14 @@
 .reset_default:hover {
   --tw-rotate: -360deg;
 }
+
+@media (max-height: 768px) {
+  .config {
+    padding-top: 40px;
+    padding-bottom: 28px;
+  }
+
+  .title {
+    margin-top: 32px;
+  }
+}

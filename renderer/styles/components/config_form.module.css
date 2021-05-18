@@ -1,0 +1,6 @@
+@media (max-height: 768px) {
+  .form {
+    margin-top: 40px;
+    row-gap: 20px;
+  }
+}

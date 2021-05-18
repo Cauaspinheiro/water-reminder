@@ -1,6 +1,6 @@
 {
   "name": "water-reminder",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "author": "Cauã Pinheiro <cauaspinheiro@gmail.com>",
   "main": "app/background.js",
   "scripts": {

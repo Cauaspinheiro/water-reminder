@@ -7,11 +7,10 @@ import {
   useState
 } from 'react'
 
-import { ConfigSchema } from '../store/config_store'
 import waterProgressStore from '../store/water_progress_store'
 import CreateWaterNotification from '../use-cases/create_water_notification'
+import GetConfig from '../use-cases/get_config'
 import GetWaterProgress from '../use-cases/water_progress/get_water_progress'
-import GetWaterProgressConfig from '../use-cases/water_progress/get_water_progress_config'
 import ResetWaterProgress from '../use-cases/water_progress/reset_water_progress'
 import SetWaterProgress from '../use-cases/water_progress/set_water_progress'
 import getTwoDigitsNumber from '../utils/get_two_digits_number'
@@ -53,7 +52,7 @@ let waterCountdown: NodeJS.Timeout
 const ONE_SECOND = 1000
 
 export const WaterProgressContext: React.FC = ({ children }) => {
-  const config = useMemo(GetWaterProgressConfig, [])
+  const config = useMemo(() => GetConfig().water_progress, [])
 
   const [progress, setProgress] = useState(GetWaterProgress())
   const [timeInSeconds, setTimeInSeconds] = useState(config.seconds_to_drink)
@@ -76,23 +75,19 @@ export const WaterProgressContext: React.FC = ({ children }) => {
     [progress]
   )
 
-  const notification = useMemo(() => {
-    const waterNotification = CreateWaterNotification({
-      percentAchieved: percent
+  const showNotification = useCallback(() => {
+    CreateWaterNotification({
+      percentAchieved: percent,
+      onClick() {
+        {
+          setTimeInSeconds(config.seconds_to_drink)
+          addWater(config.quant_water_on_drink)
+        }
+      },
+      onClose() {
+        setTimeInSeconds(config.seconds_to_drink)
+      }
     })
-
-    if (!waterNotification) return undefined
-
-    waterNotification.on('click', () => {
-      setTimeInSeconds(config.seconds_to_drink)
-      addWater(config.quant_water_on_drink)
-    })
-
-    waterNotification.on('close', () =>
-      setTimeInSeconds(config.seconds_to_drink)
-    )
-
-    return waterNotification
   }, [addWater, config.quant_water_on_drink, config.seconds_to_drink, percent])
 
   const resetTimeout = useCallback(() => {
@@ -117,8 +112,8 @@ export const WaterProgressContext: React.FC = ({ children }) => {
       return
     }
 
-    notification?.show()
-  }, [notification, timeInSeconds])
+    showNotification()
+  }, [showNotification, timeInSeconds])
 
   const handleReset = useCallback(() => {
     const hours = getTwoDigitsNumber(new Date().getHours())

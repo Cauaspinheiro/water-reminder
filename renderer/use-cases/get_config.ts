@@ -1,5 +1,9 @@
-import configStore, { ConfigSchema } from '../store/config_store'
+import { ipcRenderer } from 'electron'
+
+import ConfigDefaultValue from '../store/config_default_value'
 
 export default function GetConfig(): ConfigSchema {
-  return configStore.get('config')
+  if (!ipcRenderer) return ConfigDefaultValue
+
+  return ipcRenderer.sendSync('get-config')
 }

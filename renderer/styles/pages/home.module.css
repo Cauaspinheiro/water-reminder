@@ -1,12 +1,9 @@
-@media (max-height: 800px) {
-  .content_container footer {
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    height: 100%;
-    padding-top: 40px;
+@media (max-height: 768px) {
+  .content_container .title {
+    display: none;
   }
 
-  .content_container .water_drop {
-    display: none;
+  .content_container footer {
+    padding-top: 12px;
   }
 }

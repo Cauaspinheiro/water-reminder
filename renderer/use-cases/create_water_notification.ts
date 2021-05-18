@@ -1,20 +1,18 @@
-import { Notification, remote } from 'electron'
+import { ipcRenderer } from 'electron'
 
 export interface CreateWaterNotificationProps {
   percentAchieved: number
+  onClick(): void
+  onClose(): void
 }
 
 export default function CreateWaterNotification(
   props: CreateWaterNotificationProps
-): Notification | undefined {
-  if (!remote) return undefined
+): void {
+  if (!ipcRenderer) return
 
-  const notification = new remote.Notification({
-    title: 'Hora de beber água!',
-    body:
-      `Você já bebeu ${props.percentAchieved}% da meta de hoje!\n\n` +
-      'Clique na notificação para confirmar, e no X para pular essa hora de beber.'
-  })
+  ipcRenderer.on('notification-closed', props.onClose)
+  ipcRenderer.on('notification-clicked', props.onClick)
 
-  return notification
+  ipcRenderer.send('create-notification', props.percentAchieved)
 }
