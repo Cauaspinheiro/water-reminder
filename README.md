@@ -30,6 +30,12 @@ At the moment the only supported language is pt-br.
 
 ![config](.github/config.png)
 
+## Usage
+
+At the moment, only the windows version is available for download, if you have a different OS, you need to install the project and build in you own machine, for this, please see [Installation Guide](#installation)
+
+Windows .exe file: https://drive.google.com/file/d/1UAmnZGgkDwDxuoC-vocY7ym8W34TpFGe/view?usp=sharing
+
 ## Installation
 
 You will need some tools to run the project locally. If you just want to access the app, see the topic [Usage](#usage)
@@ -103,9 +109,3 @@ For better separation and understandability, I use these naming conventions in t
 React Logic: camelCase
 
 Everything else: snake_case
-
-## Usage
-
-At the moment, only the windows version is available for download, if you have a different OS, you need to install the project and build in you own machine, for this, please see [Installation Guide](#installation)
-
-Windows .exe file: https://drive.google.com/file/d/1UAmnZGgkDwDxuoC-vocY7ym8W34TpFGe/view?usp=sharing
