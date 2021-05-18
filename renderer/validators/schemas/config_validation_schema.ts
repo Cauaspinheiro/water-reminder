@@ -37,13 +37,10 @@ const ConfigValidationSchema = Yup.object().shape({
       .test('datetime', 'Digite um tempo válido', value => {
         if (!value) return false
 
-        const { left: hours, right: minutes } = timeToObject(value)
-
-        if (Number.isNaN(hours)) return false
-        if (Number(hours) > 24) return false
+        const { left: minutes, right: seconds } = timeToObject(value)
 
         if (Number.isNaN(minutes)) return false
-        if (Number(minutes) > 60) return false
+        if (Number.isNaN(seconds)) return false
 
         return true
       })
