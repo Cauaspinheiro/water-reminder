@@ -22,17 +22,22 @@ export default function HandleTray(window: BrowserWindow): void {
 
     tray = new Tray(path.join(__dirname, '..', 'resources', 'tray.png'))
 
+    tray.on('click', () => {
+      window.show()
+      tray?.destroy()
+    })
+
     const menu = Menu.buildFromTemplate([
       {
         label: 'Abrir',
-        click: function () {
+        click() {
           window.show()
           tray?.destroy()
         }
       },
       {
         label: 'Fechar',
-        click: function () {
+        click() {
           app.isQuitting = true
           app.quit()
         }
