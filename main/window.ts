@@ -6,6 +6,8 @@ export default function CreateWindow(): BrowserWindow {
     minWidth: 768,
     minHeight: 768,
     backgroundColor: '#202833',
+    width: 0,
+    height: 0,
     icon: path.join(__dirname, '..', 'resources', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -14,8 +16,8 @@ export default function CreateWindow(): BrowserWindow {
   }
   const win = new BrowserWindow(browserOptions)
 
-  win.maximize()
   win.setMenuBarVisibility(false)
+  win.maximize()
 
   return win
 }

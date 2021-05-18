@@ -13,6 +13,8 @@ export default async function RenderElectron(): Promise<void> {
     return app.quit()
   }
 
+  app.focus()
+
   const mainWindow = CreateWindow()
 
   HandleTray(mainWindow)
