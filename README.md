@@ -34,7 +34,7 @@ At the moment the only supported language is pt-br.
 
 At the moment, only the windows version is available for download, if you have a different OS, you need to install the project and build in you own machine, for this, please see [Installation Guide](#installation)
 
-Windows .exe file: https://drive.google.com/file/d/1UAmnZGgkDwDxuoC-vocY7ym8W34TpFGe/view?usp=sharing
+Windows .exe file: https://drive.google.com/file/d/1ytXrVLtX0uCew_y0hqAtN8FVOS1Og2lS/view?usp=sharing
 
 ## Installation
 
